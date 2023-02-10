@@ -2,6 +2,15 @@ import { Types } from "aptos"
 import { formatParam, formatType } from "hooks/formatting"
 import { textCopy } from "utils"
 
+const format_type_arg = (type_args: string[]) => {
+
+    return type_args.map((type_arg) => {
+        const addr = type_arg.split("::")[0]
+
+    })
+}
+
+
 const EntryTxnArgs = ( payload :Types.TransactionPayload_EntryFunctionPayload) => {
     return (
         <div className="flex flex-row m-2 justify-between outline outline-2  rounded-md bg-opacity-40">

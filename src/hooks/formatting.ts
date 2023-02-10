@@ -124,11 +124,23 @@ export const splitType = (type:string) => {
     }
     else{
         const splitt = type.split("::");
-        if (splitt[1][0]==="<"){
-            return {address:splitt[0],module:"base",name:splitt[1]}
-        }
         return {address:splitt[0],module:splitt[1],name:splitt[2]}
     }
+}
+
+export const splitGeneric = (type:string) => {
+    const base = type.split("<")
+    const main = type.split("::")
+    const address = main[0]
+    const module = main[1]
+    const name = main[2].split("<")[0]
+    const types = []
+    if(base.length>1){
+
+        const rest = base[1]
+        return {address:address,module:module,name:name,types:rest.split(",")}
+    }
+    return {address:address,module:module,name:name,types:[]}
 }
 
 

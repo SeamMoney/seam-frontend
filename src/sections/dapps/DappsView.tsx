@@ -17,8 +17,30 @@ import { DappContextProvider, useDappContext } from "./DappContext";
 import { Outlet, useParams } from "react-router-dom";
 import WindowWrapper from "components/etc/WindowWrapper";
 import SplashFrame from "./SplashFrame";
+import { gql } from "@apollo/client";
 
 
+const GET_NFTS = gql`
+    query CurrentTokens($owner_address: String, $offset: Int) {
+  current_token_datas(
+    where: {owner_address: {_eq: $owner_address}, amount: {_gt: "0"}}
+    order_by: {last_transaction_version: desc}
+    offset: $offset
+  ) {
+    token_data_id_hash
+    name
+    collection_name
+    property_version
+  }
+}`;
+
+
+const GET_TX_WITH_DAPP = gql`
+    query MyQuery($owner_address: String, $offset: Int) {
+    user_transactions(
+      where: {entry_function_id_str: {_eq: "0x1::"}, sender: {_eq: "user"}}
+    )
+  }`;
 
 const DappsView = () => {
     let { dappName } = useParams();
@@ -27,6 +49,7 @@ const DappsView = () => {
     const [recentOpen, setRecentOpen] = useState<any[]>(dapps.slice(0, 3));
     const [home,setHome] = useState<boolean>(true);
     const [txns,setTxs] = useState<any[]>([]);
+    const [otherTxns,setOther] = useState<any[]>([]);
 
     const [dappStack, setDappStack] = useState<any[]>(recentOpen);
     // const { isHome, selectDapp, toggleHome } = useDappContext()
@@ -35,6 +58,31 @@ const DappsView = () => {
         const newStack = [curr, ...dappStack]
         setDappStack(newStack);
     }
+
+    // const lendFunctions = [
+    //     {
+
+    // ];
+
+    const loadOthers = async (dappaddress: string) => {
+      const alike = `%${dappaddress}%`;
+      const q = gql`
+      query CurrentTxs($owner_address: String, $offset: Int) {
+    user_transactions(
+      where: {entry_function_id_str: {_like: alike}, sender: {_eq: "user"}}
+      order_by: {last_transaction_version: desc}
+      offset: $offset
+    ) {
+      token_data_id_hash
+      name
+      collection_name
+      metadata_uri
+      supply
+      maximum
+      royalty_points_denominator
+    }
+    }`;
+    };
 
     const changeDapp = (dapp: any) => {
         setHome(false);

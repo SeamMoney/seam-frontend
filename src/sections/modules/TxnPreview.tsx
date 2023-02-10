@@ -1,5 +1,5 @@
 
-import { useWallet } from "@manahippo/aptos-wallet-adapter";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { AptosAccount, AptosClient, BCS, HexString, TxnBuilderTypes } from "aptos";
 import { Types } from "aptos";
 import ModuleOutline from "components/etc/ModuleOutline";
@@ -37,6 +37,7 @@ const TxnPreview = ({ address, module, func, params, generic_types, client }: Tx
     const [argList, setArgList] = useState<any[]>([]);
     const [gList, setgList] = useState<any[]>([]);
     const { account, connected,} = useWallet();
+    const {signAndSubmitTransaction, signTransaction,signMessage,signMessageAndVerify} = useWallet()
 
     const updateArg = (index: number, value: string,type:any) => {
         const newArgs = [...argList];
@@ -86,10 +87,43 @@ const TxnPreview = ({ address, module, func, params, generic_types, client }: Tx
         //         return parser(arg.value);
         //     }
         //     return arg.value;
+        if("signer" in args){
+            console.log("signer in args");
+        }
+        onSignAndSubmitTransaction(toAddr, sender, mod, func, generic_type_params, arg_ls)
+        
+        // sendTansaction(toAddr, sender, mod, func, generic_type_params, arg_ls)
 
-        sendTransaction(toAddr, sender, mod, func, generic_type_params, arg_ls)
 
     };
+
+    const onSignAndSubmitTransaction = async (
+        toAddr:string,
+        sender:string,
+        mod:string,
+        func:string,
+        generic_type_params: string[],
+        args: any[]
+        ) =>{
+        const f = `${toAddr}::${mod}::${func}`
+        const payload: Types.TransactionPayload = {
+          type: "entry_function_payload",
+          function: f,
+          type_arguments: generic_type_params,
+          arguments: args, // 1 is in Octas
+        };
+        try {
+          const response = await signAndSubmitTransaction(payload);
+        //   await aptosClient.waitForTransaction(response?.hash || "");
+        //   setSuccessAlertMessage(
+        //     `https://explorer.aptoslabs.com/txn/${response?.hash}`
+        //   );
+        } catch (error: any) {
+          console.log("error", error);
+        //   setErrorAlertMessage(error);
+        }
+
+      };
 
     // const payload
 
@@ -126,7 +160,7 @@ const TxnPreview = ({ address, module, func, params, generic_types, client }: Tx
                             return (
                                 <div key={index} className="flex flex-row items-baseline justify-start px-2 py-3 m-3 rounded-xl text-white">
                                     { }
-                                    <p className="p-1 text-bold text-right">{"<g>"}</p>
+                                    <p className="p-1 text-bold text-right">{"<T>"}</p>
                                     <input
                                         className="px-2 text-black py-2 rounded-xl outline outline-2"
                                         type="text" placeholder={""}

@@ -137,22 +137,21 @@ export const dapps = [
   },
 
 
-  // {
-  //   "name": "Enchanter",
-  //   discord: "https://discord.com/invite/D4kMhm7Ktk",
-  //   image: "Enchanter.png",
-  //   url: "https://app.enchanter.fi/",
-  //   description: "",
-  //   tags: ["DEX", "DeFi"],
-  //   Published: "Jul 19, 2022 6:53 AM",
-  //   twitter: "https://twitter.com/EnchanterFi",
-  //   address: "0xcef9ab8e6539103b34d26388c976683e9fb7fdeee80b9beee4fdaba65a693809",
-  //   status: "TBA",
-  //   github: "",
-  //   Docs: "",
-  //   Npm: "",
-  // },
-
+  {
+    "name": "Umi",
+    discord: "https://discord.com/invite/D4kMhm7Ktk",
+    image: "umi.png",
+    url: "https://umi.ag/swap",
+    description: "",
+    tags: ["DEX", "DeFi","Router"],
+    Published: "Jul 19, 2022 6:53 AM",
+    twitter: "https://twitter.com/EnchanterFi",
+    address: "0xbeaa9e5ef5bee0781476a4adf293aae7dc3a28e9bd79fda89fca7211fb94c80",
+    status: "Mainnet",
+    github: "",
+    Docs: "",
+    Npm: "",
+  },
 
 
   {
@@ -167,6 +166,20 @@ export const dapps = [
     "logo": "",
     "Github": "",
     "Docs": "",
+  },
+  {
+    "name": "Able",
+    "tags": ["Lending"],
+    "discord": "",
+    "Published": "Jul 21, 2022 7:50 PM",
+    "twitter": "https://twitter.com/ThalaLabs",
+    "image": "abel.png",
+    "url": "https://www.thalalabs.xyz/",
+    "status": "TBA",
+    "logo": "",
+    "Github": "",
+    "address": "0xc0188ad3f42e66b5bd3596e642b8f72749b67d84e6349ce325b27117a9406bdf",
+    "Docs": "https://aptos-lend.gitbook.io/abel-finance/",
   },
   {
     "name": "1kx",
@@ -293,6 +306,34 @@ export const dapps = [
     "docs": "",
     "npm": "",
   },
+  {
+    "name": "PankcakeSwap",
+    "tags": ["Bridge", "Dex"],
+    "discord": "",
+    "Published": "Jul 19, 2022 5:45 AM",
+    "twitter": "https://twitter.com/TopazMarket",
+    "status": "Testnet",
+    "image": "pancakeSwap.png",
+    "address": "0xc7efb4076dbe143cbcd98cfaaa929ecfc8f299203dfff63b95ccb6bfe19850fa",
+    "url": 'https://aptos.pancakeswap.finance/liquidity',
+    "github": "",
+    "docs": "",
+    "npm": "",
+  },
+  {
+    "name": "Pankcake(masterchef)",
+    "tags": ["Bridge", "Dex"],
+    "discord": "",
+    "Published": "Jul 19, 2022 5:45 AM",
+    "twitter": "https://twitter.com/TopazMarket",
+    "status": "Testnet",
+    "image": "pancakeSwap.png",
+    "address": "0x7968a225eba6c99f5f1070aeec1b405757dee939eabcfda43ba91588bf5fccf3",
+    "url": 'https://aptos.pancakeswap.finance/liquidity',
+    "github": "",
+    "docs": "",
+    "npm": "",
+  },
 
   {
     "name": "ATODEX",
@@ -371,6 +412,17 @@ export const dapps = [
     "image": "aptFlip.png",
     "twitter": "https://twitter.com/Aptosflip",
     "discord": "https://discord.com/invite/bvC6uXyMvy",
+  },
+  { 
+    "name": "SolCasino",
+    "tags": ["Gaming"],
+    "url" : "https://solcasino.io/",
+    "docs": "https://medium.com/@APTflip",
+    "github": "",
+    "address":"0xfc2b127d26d6477b2114562a060809dc2acfa723fd130a1f5356a18e1c697",
+    "image": "solCasino.jpeg",
+    "twitter": "https://twitter.com/Solcasinoio",
+    "discord": "na"
   },
 
   { 
