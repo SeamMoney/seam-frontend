@@ -17,7 +17,11 @@ import DetailPage from "pages/DetailPage";
 import IDE from "pages/IDE";
 import SeamPass from "pages/SeamPass";
 import NodePage from "pages/NodePage";
+import Home from "pages/Home";
+import Login from "pages/Login";
+import { AuthProvider } from "components/Auth";
 import { Trade } from "pages/Trade";
+import { Dashboard } from 'pages/Dashboard';
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -32,12 +36,15 @@ import ModuleExplorer from "sections/modules/ModuleExplorer";
 import Validators from "sections/staking/Validators";
 import UserExplorer from "sections/UserExplorer";
 import { dappByName, dappsByAddress, isDapp } from "util/dappUtils";
+import Wrapper from './Wrapper';
+import React, { useState } from "react";
 
 export const BaseRouter = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
-        <Route path="/" element={<Trade />} />
+        <Route path="/trade" element={<Trade />} />
+        <Route path="/" element={<Dashboard />} />
         <Route path="powersets" element={<Trade />} />
         <Route element={<Dao />} path="dao" />
 
@@ -151,6 +158,13 @@ export const BaseRouter = () => {
             }}
           />
         </Route>
+
+        {/* Auth assignment for CSC424 ----------------------------- */}
+
+        <Route path="*" element={<p>There's nothing here: 404!</p>} />
+          <Route element={<Home />} path="home"/> 
+          <Route element={<Login id={""} name={""} />} path="login"/> 
+
       </Route>
     )
   );
