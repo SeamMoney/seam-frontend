@@ -1,7 +1,7 @@
 import TxnHeader from "components/txn/TxnHeader";
 import { useEffect, useRef, useState } from "react";
 import { generic_serialize } from "util/aptosUtils";
-import { useWallet } from '@manahippo/aptos-wallet-adapter';
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { useWeb3 } from "@fewcha/web3-react";
 import ModalWrapper from "./ModalWrapper";
 import copy from "copy-to-clipboard";
@@ -22,32 +22,28 @@ const WalletModal = ({ isOpen, setIsOpen }: walletModalProps) => {
     disconnect,
     account,
     wallets,
-    connecting,
     connected,
-    disconnecting,
-    wallet: currentWallet,
+    wallet
   } = useWallet();
 
   const { network } = useWeb3();
 
   const onDisconnect = () => {
-    disconnect().then(() => {
+    disconnect()
     setOpen(false);
     setIsOpen(false);
-    });
   }
 
   const renderWalletConnectorGroup = () => {
     return wallets?.map((wallet) => {
-      const option = wallet.adapter;
+      const option = wallet;
       return (
         <button
           onClick={() => {
-            connect(option.name);
-            localStorage.setItem("wallet", option.name);
+            connect(wallet.name);
           }}
           className="flex flex-row seam-button items-center justify-center w-full h-12 rounded-md gap-4"
-          id={option.name.split(' ').join('_')}
+          id={option.name}
           key={option.name}
           >
           <img 
@@ -125,6 +121,7 @@ const WalletModal = ({ isOpen, setIsOpen }: walletModalProps) => {
     <ModalWrapper open={isOpen} setOpen={setIsOpen} cancelButtonRef={cancelButtonRef} title="tets">
       <ChainInput />
       {connected && account!=null ? <div className="flex flex-col justify-between"> 
+      {wallet!=null && <p className="text-green1 text-center text-lg">{wallet.name}</p>}
       <AccountOutline addr={account!=null ? account.address?.toString():"not Connected"}/>
       <p className="text-green1 text-center text-lg">Connected</p>
       </div> : <p> Not connected </p>}

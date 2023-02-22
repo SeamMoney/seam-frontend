@@ -19,30 +19,20 @@ interface SplashProps{
 
 const DappBadge = ({ dapp, setSelectedDapp, isSelected, key }: sDapp) => {
     return (
+                <button onClick={() => setSelectedDapp(dapp)}>
         <div className="h-100  outline rounded-xl outline-white shadow-blue shadow-lg m-4 px-4 py-2">
             <div className="flex flex-row justify-between items-center">
                 <p className="text-lg font-bold text-right">{dapp.name}</p>
                 {DappLogo(dapp.image)}
             </div>
-            {dapp.address ?
-                <Link to={`/explorer/modules/mainnet/${dapp.address}`}>
-                    <p className="hover:text-underlined"
-                    >@{shortenAddress(dapp.address)}</p></Link> : null}
-            <Link to={`/explorer/dapps/${dapp.name}`}>
-                <button onClick={() => setSelectedDapp(dapp)}
+            
+            {/* <Link to={`/explorer/dapps/${dapp.name}`}>
                     className={`w-full seam-button  items-center justify-center  ${isSelected ? 'bg-white bg-opacity-100 text-black' : ''}`} key={dapp.name + '-ui'}>
                     Open Dapp
-                </button>
-            </Link>
+            </Link> */}
 
-
-            {/* <Link to={`/explorer/dapps/info/${dapp.name}`}> */}
-                <button
-                    className={`outline outline-white w-full text-black hover:text-white bg-white hover:bg-transparent outline-2 dappBadge items-center justify-center  ${isSelected ? 'bg-white bg-opacity-100 text-black' : ''}`} key={dapp.name + "-info"}>
-                    Dapp Info
-                </button>
-            {/* </Link> */}
-        </div>)
+        </div>
+                </button>);
 }
 
 const SplashFrame = ({selectDapp}:SplashProps) => {
