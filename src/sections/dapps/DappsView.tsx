@@ -27,6 +27,7 @@ const DappsView = () => {
     const [recentOpen, setRecentOpen] = useState<any[]>(dapps.slice(0, 3));
     const [home,setHome] = useState<boolean>(true);
     const [txns,setTxs] = useState<any[]>([]);
+    const [otherTxns,setOther] = useState<any[]>([]);
 
     const [dappStack, setDappStack] = useState<any[]>([dappByName(dappName || "home"), ...recentOpen]);
     // const { isHome, selectDapp, toggleHome } = useDappContext()
@@ -35,6 +36,31 @@ const DappsView = () => {
         const newStack = [curr, ...dappStack]
         setDappStack(newStack);
     }
+
+    // const lendFunctions = [
+    //     {
+
+    // ];
+
+    const loadOthers = async (dappaddress: string) => {
+      const alike = `%${dappaddress}%`;
+      const q = gql`
+      query CurrentTxs($owner_address: String, $offset: Int) {
+    user_transactions(
+      where: {entry_function_id_str: {_like: alike}, sender: {_eq: "user"}}
+      order_by: {last_transaction_version: desc}
+      offset: $offset
+    ) {
+      token_data_id_hash
+      name
+      collection_name
+      metadata_uri
+      supply
+      maximum
+      royalty_points_denominator
+    }
+    }`;
+    };
 
     const changeDapp = (dapp: any) => {
         setHome(false);
@@ -58,8 +84,9 @@ const DappsView = () => {
                             : null}
                 <div className="px-6 w-full">
                     <div className="w-full items-center justify-center">
-                    
-
+                    {home ? (
+                            <SplashFrame selectDapp={changeDapp} />)
+                            : null}
                         {  selectedDapp?.name ? (
                             <DappFrame dapp={selectedDapp} goHome={()=>setHome(true)} viewUrl={selectedDapp.url} selectDapp={changeDapp} />) : null}
                         

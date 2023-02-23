@@ -40,7 +40,7 @@ function Home() {
       </p>
       <div className="flex flex-col items-center">
         <div className="m-4 pb-6 text-center">
-          <p className="text-9xl pl-2">Σ</p>
+          <p className="text-9xl pl-2">S</p>
           <img className="w-80" src="./Tokenfork.png" alt="" />
         </div>
         <div className="m-2">

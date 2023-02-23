@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Types } from "aptos";
-import { formatType, format_large_number, shortenAddress, splitType } from "hooks/formatting";
+import { formatType, format_large_number, shortenAddress, splitGeneric, splitType } from "hooks/formatting";
 import ReactTooltip from "react-tooltip";
 import { json } from "stream/consumers";
 import { DepositsWithdraws } from "./DepositsWithdraws";
@@ -83,7 +83,7 @@ const Resource = (resource: Types.MoveResource,selectResource: (resource:Types.M
     }
 
     
-    const { address, module, name } = splitType(resource.type);
+    const { address, module, name,types } = splitGeneric(resource.type);
     const isSelf = address===base_addr;
     return (
         <div className="p-2 m-2 outline h-40 rounded-lg outline-2 ">
@@ -92,6 +92,9 @@ const Resource = (resource: Types.MoveResource,selectResource: (resource:Types.M
             <AccountOutline name="" addr={address} isSelf={isSelf}/>
             <ModuleOutline module_name={module}/>
             <TypeOutline type_name={name}/>
+            {types.map((t)=>{
+                return <TypeOutline type_name={t}/>
+            })}
             {/* <TypeOu */}
             </div>
             <div className="flex flex-row justify-end items-end">
