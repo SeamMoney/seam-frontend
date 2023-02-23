@@ -3,7 +3,7 @@ import { useWallet } from "@manahippo/aptos-wallet-adapter";
 import { AptosAccount, AptosClient, BCS, HexString, TxnBuilderTypes } from "aptos";
 import { Types } from "aptos";
 import ModuleOutline from "components/etc/ModuleOutline";
-import { formatParam } from "hooks/formatting";
+import { formatParam, shortenAddress } from "hooks/formatting";
 import { sendTransaction } from "hooks/useAptos";
 import { useState } from "react";
 
@@ -93,38 +93,38 @@ const TxnPreview = ({ address, module, func, params, generic_types, client }: Tx
 
     // const payload
 
+
+    const argT = (arg:string) => {
+        if(arg.split("::").length==1){
+            return arg;
+        }
+        if(arg.split("::").length==2){
+            return arg.split("::")[1];
+        }
+        if(arg.split("::").length==3){
+            let s = arg.split("::");
+            return shortenAddress(s[1])+"::"+s[2];
+        }
+    }
+
+
+
     return (
         <div className="items-center m-4 p-4">
             <p className="text-3xl p-2 text-center" >Use Module</p>
             <div className=" items-center seam-outline shadow-pastelBlue shadow-2xl">
-
-                <div className="flex flex-wrap items-center gap gap-3">
+<div className="flex flex-row items-start">
+                <div className="flex flex-wrap items-start w-1/2 gap gap-3">
                     <p className="account-outline text-2xl">{formatParam(address)}</p>
                     <p className="text-3xl">::</p>
 
                     {module !== undefined && module.abi ? <ModuleOutline module_name={module.abi?.name} /> : <p className="text-2xl"></p>}
                     <p className="text-2xl">::</p>
                     <p className="function-outline text-3xl">{func.name}</p>
-
-                </div>
-                <div className="flex flex-row gap-2 ">
-                    <div>
-                        { params.length!==0 && params[0] === "&signer" ? <p className="text-2xl">signer</p> : <p className="text-2xl">signer,</p>}
-                        {params.filter(param => param!=="&signer").map((param: Types.MoveType, index: number) => {
-                            return (
-                                <div key={index} className="flex flex-row items-baseline justify-start px-2 py-3 m-3 rounded-xl text-white">
-                                    { }
-                                    <p className="p-1 text-bold text-right">{param}</p>
-                                    <input className="px-3 text-black py-2 rounded-xl outline outline-2" type="text" placeholder={""} value={argList[index]?.value} onChange={(event) => updateArg(index, event.target.value,param)} />
-                                </div>
-                            )
-                        })}
-                    </div>
-
                     <div>
                         {generic_types.map((g: Types.MoveFunctionGenericTypeParam, index: number) => {
                             return (
-                                <div key={index} className="flex flex-row items-baseline justify-start px-2 py-3 m-3 rounded-xl text-white">
+                                <div key={index} className="flex flex-col items-baseline justify-start px-2 py-3 m-3 rounded-xl text-white">
                                     { }
                                     <p className="p-1 text-bold text-right">{"<g>"}</p>
                                     <input
@@ -137,10 +137,36 @@ const TxnPreview = ({ address, module, func, params, generic_types, client }: Tx
                             )
                         })}
                     </div>
-                </div>
-                {argList.length !== 0 && <p className="text-2xl">args: {argList.map((arg: any) => arg.value).join(", ")}</p>}
 
-                {gList.length !== 0 && <p className="text-2xl">args: {gList.map((arg: any) => arg).join(", ")}</p>}
+                </div>
+                    <div>
+                    </div>
+
+                <div className="flex flex-row md:flex-wrap items-center outline-white gap-2 ">
+
+                        {/* <div> */}
+                        <p>{"<"}</p>
+                        {params.filter(param => param!=="&signer").map((param: Types.MoveType, index: number) => {
+                            return (
+                                <div key={index} className="flex flex-col items-baseline justify-start px-2 py-3 m-3 rounded-xl text-white">
+                                    { }
+                                    <input className="px-3 text-black py-2 rounded-xl outline outline-2" type="text" placeholder={""} value={argList[index]?.value} onChange={(event) => updateArg(index, event.target.value,param)} />
+                                    <p className="p-1 text-bold text-left">{argT(param)}</p>
+
+                                </div>
+                            )
+                        })}
+                        <p>{">"}</p>
+                        {/* </div> */}
+                    </div>
+
+                    
+                </div>
+                { params.length!==0 && params[0] === "&signer" ? <p className="text-2xl">signer</p> : <p className="text-2xl">signer,</p>}
+
+                {/* {argList.length !== 0 && <p className="text-2xl">args: {argList.map((arg: any) => arg.value).join(", ")}</p>} */}
+
+                {/* {gList.length !== 0 && <p className="text-2xl">args: {gList.map((arg: any) => arg).join(", ")}</p>} */}
                         
                 <button onClick={() => checkTxn(address, account?.address?.toString()||"", module.abi?.name || "", func.name, gList as string[], argList)} className="seam-button ">send Txn</button>
             </div>

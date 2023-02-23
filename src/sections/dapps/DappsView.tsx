@@ -28,7 +28,7 @@ const DappsView = () => {
     const [home,setHome] = useState<boolean>(true);
     const [txns,setTxs] = useState<any[]>([]);
 
-    const [dappStack, setDappStack] = useState<any[]>(recentOpen);
+    const [dappStack, setDappStack] = useState<any[]>([dappByName(dappName || "home"), ...recentOpen]);
     // const { isHome, selectDapp, toggleHome } = useDappContext()
 
     const pushDapp = (curr: any) => {
@@ -50,16 +50,19 @@ const DappsView = () => {
 
 
     return (
-        <div className="flex flex-col w-full p-6 relative items-start justify-start ">
+        <div className="flex flex-row w-full p-2 relative items-start justify-start ">
                 {/* <Draggable>                     */}
                 {/* <WindowWrapper> */}
-                <div className="px-6 w-full">
-                    <div className="w-full items-center justify-center">
-                        {  selectedDapp?.name ? (
-                            <DappFrame dapp={selectedDapp} goHome={()=>setHome(true)} viewUrl={selectedDapp.url} selectDapp={changeDapp} />) : null}
-                        {home ? (
+                {home ? (
                             <SplashFrame selectDapp={changeDapp} />)
                             : null}
+                <div className="px-6 w-full">
+                    <div className="w-full items-center justify-center">
+                    
+
+                        {  selectedDapp?.name ? (
+                            <DappFrame dapp={selectedDapp} goHome={()=>setHome(true)} viewUrl={selectedDapp.url} selectDapp={changeDapp} />) : null}
+                        
                     </div>
                 </div>
                 {/* </WindowWrapper> */}
