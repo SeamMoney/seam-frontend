@@ -19,7 +19,6 @@ interface SplashProps{
 
 const DappBadge = ({ dapp, setSelectedDapp, isSelected, key }: sDapp) => {
     return (
-                <button onClick={() => setSelectedDapp(dapp)}>
             
                 <button onClick={() => setSelectedDapp(dapp)}
                     className={`w-full w-60 seam-button  items-center justify-center  ${isSelected ? 'bg-white bg-opacity-100 text-black' : ''}`} key={dapp.name + '-ui'}>
@@ -34,25 +33,23 @@ const DappBadge = ({ dapp, setSelectedDapp, isSelected, key }: sDapp) => {
                     Open Dapp
             </Link> */}
 
-        </div>
                 </button>);
 }
 
 const SplashFrame = ({selectDapp}:SplashProps) => {
     // const { dapp, selectDapp } = useDappContext();
     return (
-        <div className="w-1/4 h-100 items-center justify-center">
+        <div className="w-1/4 items-center  justify-center">
             <div className="mockup-window bg-black border-pink rounded-xl mockup-window-outline border-4 shadow-xl  shadow-blue  w-full pt-2 m-3">
 
-                <div className="flex flex-wrap w-full  items-center justify-start">
+                <div className="flex flex-wrap w-full h-1/2 items-center  overflow-scroll-y scroll-smooth justify-start">
                     {/* <Draggable> */}
                     {dapps.map((dapp1, i) => {
                         
                         return (
-                            <div className="bg-black">
                                 <DappBadge key={"dapp" + i.toString()} dapp={dapp1} setSelectedDapp={selectDapp
                         } />
-                            </div>)
+                        )
 
                     })}
                 </div>

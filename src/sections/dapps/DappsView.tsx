@@ -6,6 +6,7 @@ import { Types } from "aptos";
 import { loadTxs } from "hooks/useTransaction";
 import TxnList from "sections/TxnList";
 import DappFrame from "./DappFrame";
+import { gql } from "@apollo/client";
 import Icons from "components/Icons";
 import DappLogo from "./DappLogo";
 import DappBadge from "components/DappBadge";
@@ -17,6 +18,7 @@ import { DappContextProvider, useDappContext } from "./DappContext";
 import { Outlet, useParams } from "react-router-dom";
 import WindowWrapper from "components/etc/WindowWrapper";
 import SplashFrame from "./SplashFrame";
+import SwitchView from "sections/SwitchView";
 
 
 
@@ -79,9 +81,9 @@ const DappsView = () => {
         <div className="flex flex-row w-full p-2 relative items-start justify-start ">
                 {/* <Draggable>                     */}
                 {/* <WindowWrapper> */}
-                {home ? (
+                {/* {home ? (
                             <SplashFrame selectDapp={changeDapp} />)
-                            : null}
+                            : null} */}
                 <div className="px-6 w-full">
                     <div className="w-full items-center justify-center">
                     {home ? (
@@ -93,7 +95,15 @@ const DappsView = () => {
                     </div>
                 </div>
                 {/* </WindowWrapper> */}
+
+                <SwitchView
+                    tab_names={["Txns", "Assets","Stats"]}
+                >
                 {txns?.length !== 0 ? <TxnList txns={txns || []} address={selectedDapp.address} /> : null}
+                {txns?.length !== 0 ? <TxnList txns={txns || []} address={selectedDapp.address} /> : null}
+
+                {txns?.length !== 0 ? <TxnList txns={txns || []} address={selectedDapp.address} /> : null}
+                </SwitchView>
                 <ReactTooltip place="top" textColor="white" html={true} multiline={true} />
         </div>
     );
