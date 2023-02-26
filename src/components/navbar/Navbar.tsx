@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "../Logo";
-import { useWallet } from '@manahippo/aptos-wallet-adapter';
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { useWeb3 } from "@fewcha/web3-react";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
@@ -63,10 +63,9 @@ export default function Navbar(props: any) {
     disconnect,
     account,
     wallets,
-    connecting,
     connected,
-    disconnecting,
-    wallet: currentWallet,
+    
+
   } = useWallet();
 
   const nav_items = (network: any) => [
@@ -89,13 +88,13 @@ export default function Navbar(props: any) {
 
   type WalletName<T extends string = string> = T & { __brand__: 'WalletName' };
 
-  useEffect(() => {
-    const wallet: WalletName = window.localStorage.getItem("wallet") as WalletName<string>;
-    console.log("wallet?", wallet);
-    if (wallet) {
-      connect(wallet);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const wallet: WalletName = window.localStorage.getItem("wallet") as WalletName<string>;
+  //   console.log("wallet?", wallet);
+  //   if (wallet) {
+  //     connect(wallet);
+  //   }
+  // }, []);
 
   return (
     <nav className="py-2.5 text-white">

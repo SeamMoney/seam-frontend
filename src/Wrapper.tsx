@@ -37,52 +37,57 @@ import {
 } from "@manahippo/aptos-wallet-adapter";
 import { ReactNode, useState, useMemo } from "react";
 import { GlobalStateProvider } from "GlobalState";
-// import { MyWalletProvider } from './context/wallet/provider';
+
 import WalletModal from "modals/walletModal";
 import Staking from "./pages/Staking";
 import { useClient } from "hooks/useAptos";
+import { RiseWallet } from "@rise-wallet/wallet-adapter";
+import { PetraWallet } from "petra-plugin-wallet-adapter";
+import { MartianWallet } from "@martianwallet/aptos-wallet-adapter";
+import { PontemWallet } from "@pontem/wallet-adapter-plugin";
+import { TrustWallet } from "@trustwallet/aptos-wallet-adapter";
+import { SpikaWallet } from "@spika/aptos-plugin";
+import { BloctoWallet } from "@blocto/aptos-wallet-adapter-plugin";
 
+import { AptosWalletAdapterProvider, NetworkName } from "@aptos-labs/wallet-adapter-react";
+import { FewchaWallet } from "fewcha-plugin-wallet-adapter";
+import { MSafeWalletAdapter } from "msafe-plugin-wallet-adapter";
+// import { SpacecyWallet } from "spacecy-plugin-wallet-adapter";
 type WrapperProps = {
   children: NonNullable<ReactNode>;
 };
+
+export const APT_GQL = "https://indexer.mainnet.aptoslabs.com/v1/graphql";
+
+const Aclient = new ApolloClient({
+    uri: APT_GQL,
+    cache: new InMemoryCache(),
+  });
+
 
 const Wrapper: React.FC<WrapperProps> = ({ children }) => {
   const [walletModalOpen, setWalletModal] = useState(false);
   const client = useClient();
 
-  const wallets = useMemo(
-    () => [
-      // new HyperPayWalletAdapter(),
-      // new HippoExtensionWalletAdapter(),
-      new MartianWalletAdapter(),
-      // new AptosWalletAdapter(),
-      new FewchaWalletAdapter(),
-      new PontemWalletAdapter(),
-      new RiseWalletAdapter(),
-      new SpikaWalletAdapter(),
-      // new FletchWalletAdapter(),
-      // new AptosSnapAdapter(),
-      new NightlyWalletAdapter(),
-      // new BitkeepWalletAdapter(),
-      new SpacecyWalletAdapter(),
-      // new TokenPocketWalletAdapter(),
-      // new BloctoWalletAdapter({ network: WalletAdapterNetwork.Testnet }),
-      // new ONTOWalletAdapter(),
-      // new FoxWalletAdapter()
-    ],
-    []
-  );
+  const wallets = [
+    new PetraWallet(),
+    new MartianWallet(),
+    new RiseWallet(),
+    new PontemWallet(),
+    new TrustWallet(),
+    new SpikaWallet(),
+    new FewchaWallet(),
+    new MSafeWalletAdapter(),
+    // Blocto supports Testnet/Mainnet for now.
+    new BloctoWallet({ network: NetworkName.Testnet, bloctoAppId: "6d85f56e-5f2e-46cd-b5f2-5cf9695b4d46" }),
+  ];
 
   return (
-    // <ApolloProvider client={client}>
+    <ApolloProvider client={Aclient}>
     <GlobalStateProvider>
-      <WalletProvider
-        wallets={wallets}
+      <AptosWalletAdapterProvider
+        plugins={wallets}
         autoConnect={true}
-        onError={(error) => {
-          console.log("wallet errors: ", error);
-          // message.error(error.message);
-        }}
       >
         <Navbar showConnectModal={setWalletModal} />
         {/* <MyWalletProvider> */}
@@ -93,10 +98,10 @@ const Wrapper: React.FC<WrapperProps> = ({ children }) => {
           <WalletModal isOpen={walletModalOpen} setIsOpen={setWalletModal} />
         ) : null}
         <SeamFooter />
-      </WalletProvider>
+      </AptosWalletAdapterProvider>
     </GlobalStateProvider>
 
-    // </ApolloProvider>
+    </ApolloProvider>
   );
 };
 

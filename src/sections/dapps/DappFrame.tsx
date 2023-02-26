@@ -43,7 +43,7 @@ const DappFrame = ({ dapp, viewUrl,selectDapp,goHome }: DappFrameProps) => {
     let dapp_data = dappByName(dapp.name||"") as Dapp;
     // const home = dapp==="home";
     return (
-        <div className="w-full min-w-full">
+        <div className="w-full ">
             <WindowWrapper>
                 {DappHeader(dapp_data)}
                 {DappNav(dapp_data,selectDapp,goHome)}
@@ -86,16 +86,8 @@ const DappNav=(dapp:Dapp,selectDapp:(dapp:Dapp)=>void,goHome:()=>void)=> {
                 className="seam-sqr">
                 <FaArrowCircleUp />
             </button>
-            {/* <input className="w-2/3 py-3 mx-3 rounded-2xl bg-white px-5 text-black"
-                value={url}>
-            </input> */}
-            <div className="flex flex-row gap gap-4 px-3 py-2 rounded-xl text-2xl">
-                {/* <button
-                    onClick={()=>setUrl((dapp as any).github)}>
-                    <FaGithub />
-                </button> */}
-            </div>
-            {/* url txt input */}
+           
+            
             <ReactTooltip place="top" textColor="white" multiline={true} />
         </div>
     )

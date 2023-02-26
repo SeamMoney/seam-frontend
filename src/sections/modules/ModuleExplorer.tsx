@@ -188,7 +188,7 @@ const ModuleExplorer = () => {
               />
             ) : null}
           </div>
-          <SwitchView>
+          <SwitchView tab_names={["Transactions","Types","Resources"]}>
             <TxnFilterView address={selectedAddress} />
             <ModuleTypes module={selectedModule} />
             <ResourceDetailView
