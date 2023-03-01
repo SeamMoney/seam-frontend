@@ -10,7 +10,6 @@
       body {
         font-family: "Electrolize", sans-serif;
         background: #070707;
-        overflow: hidden;
       }
       .wrapper {
         display: flex;
