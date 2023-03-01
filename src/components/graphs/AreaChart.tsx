@@ -20,6 +20,11 @@ const AreaChart = () => {
     options: {
       chart: {
         id: "area-chart",
+        events: {
+          mounted: (chart: any) => {
+            chart.windowResizeHandler();
+          }
+        },
         toolbar: {
           show: false,
         },

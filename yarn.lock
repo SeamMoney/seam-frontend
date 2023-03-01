@@ -130,10 +130,10 @@
     aptos "^1.3.17"
     eventemitter3 "^4.0.7"
 
-"@aptos-labs/wallet-adapter-react@^0.2.3":
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-adapter-react/-/wallet-adapter-react-0.2.3.tgz#bf80fc0a1208f5499317ddc1fffedc321f9cc0f1"
-  integrity sha512-m6y1ndIweOu4/1oMe0EkKjNtd3mRhCuwax31hZlFQi4jTMvvlQHy2gyA1pVQtHGJvCo60EHEfltkKdgvT1Jmhg==
+"@aptos-labs/wallet-adapter-react@^0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-adapter-react/-/wallet-adapter-react-0.2.4.tgz#fc625d91d4e35378e37be3bc4ff5012eabf9d32c"
+  integrity sha512-lQWTrLPCEOw9TeR1CGUoKT3OTP5tmF9x4t3Rl/k1az0hOb3etjlNt9qbe/k+GP0RujAHc7o4mISzyEjZHOPcZg==
   dependencies:
     "@aptos-labs/wallet-adapter-core" "*"
     aptos "^1.3.17"
@@ -1223,21 +1223,7 @@
     "@blocto/sdk" "^0.3.5"
     aptos "^1.4.0"
 
-"@blocto/sdk@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.npmjs.org/@blocto/sdk/-/sdk-0.3.1.tgz"
-  integrity sha512-vYZTq9QAgJyUQ15BljGhwVZzbrGLl1pEebRcLkoi7/UTyCsaU5p+oeVxyv1crCd8mARgbIcJGONdpOXLfpolaA==
-"@blocto/sdk@^0.3.1":
-  version "0.3.5"
-  resolved "https://registry.yarnpkg.com/@blocto/sdk/-/sdk-0.3.5.tgz#03f41a94d4d53611e28bfb10412cbd426bb293d5"
-  integrity sha512-uvnkkFx/aVczkVZHrE8GeV90514SQ1tl8F1MVEjhRoP/31AiA/VNZSeIxI0muX4RppbpDBgeC9gtPFFgTf+2tw==
-  dependencies:
-    bs58 "^4.0.1"
-    buffer "^6.0.3"
-    eip1193-provider "^1.0.1"
-    js-sha3 "^0.8.0"
-
-"@blocto/sdk@^0.3.5":
+"@blocto/sdk@^0.3.1", "@blocto/sdk@^0.3.5":
   version "0.3.5"
   resolved "https://registry.yarnpkg.com/@blocto/sdk/-/sdk-0.3.5.tgz#03f41a94d4d53611e28bfb10412cbd426bb293d5"
   integrity sha512-uvnkkFx/aVczkVZHrE8GeV90514SQ1tl8F1MVEjhRoP/31AiA/VNZSeIxI0muX4RppbpDBgeC9gtPFFgTf+2tw==
@@ -2365,14 +2351,11 @@
   integrity sha512-3i3OinlnoFlYEOw0ixjsRQQWFVSdecIBhxJqxHdN4kV+Vda/St+NAB7zzVZ9Mp0gY80UbWTRp9/IcRrfdpcKFg==
   dependencies:
     "@blocto/sdk" "^0.3.1"
-    "@blocto/sdk" "^0.3.1"
     "@fewcha/web3" "0.1.32"
     "@keystonehq/aptossnap-adapter" "^0.2.8"
     "@openblockhq/dappsdk" "^5.0.2"
-    "@openblockhq/dappsdk" "^5.0.2"
     eventemitter3 "^4.0.7"
     js-sha3 "^0.8.0"
-    msafe-wallet "~2.1.3"
     msafe-wallet "~2.1.3"
 
 "@manahippo/hippo-sdk@^0.0.32":
@@ -2645,11 +2628,6 @@
   version "1.1.0"
   resolved "https://registry.npmjs.org/@protobufjs/utf8/-/utf8-1.1.0.tgz"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
-
-"@ramonak/react-progress-bar@^5.0.3":
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/@ramonak/react-progress-bar/-/react-progress-bar-5.0.3.tgz#a3518fb19e6650e593a208dd429dca7cb6b63d52"
-  integrity sha512-VxXGKN74q94jYoeYuFNJm3xvWhVz9dy+alFZ8S4ZmTTr/05CCq9PjwthT8JB27UdAvn8pHvKBmemV8JU2cZi6A==
 
 "@ramonak/react-progress-bar@^5.0.3":
   version "5.0.3"
@@ -8870,7 +8848,6 @@ flow-parser@0.*:
   integrity sha512-/5Gv9zY+Mg58ubzzwNz4I29uYHDpBFR5F5ohyVsb+SxW2R8S4s1qCBRtgiTAsujsC6qmQlrsOn2DBlK4m7SQTQ==
 
 follow-redirects@^1.0.0, follow-redirects@^1.14.0, follow-redirects@^1.14.8, follow-redirects@^1.14.9, follow-redirects@^1.15.0:
-follow-redirects@^1.0.0, follow-redirects@^1.14.0, follow-redirects@^1.14.8, follow-redirects@^1.14.9, follow-redirects@^1.15.0:
   version "1.15.2"
   resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.2.tgz"
   integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
@@ -11552,7 +11529,6 @@ make-dir@^3.0.0, make-dir@^3.0.2, make-dir@^3.1.0:
     semver "^6.0.0"
 
 make-error@^1.1.1, make-error@^1.3.0:
-make-error@^1.1.1, make-error@^1.3.0:
   version "1.3.6"
   resolved "https://registry.npmjs.org/make-error/-/make-error-1.3.6.tgz"
   integrity sha512-s8UhlNe7vPKomQhC1qFelMokr/Sc3AgNbso3n74mVPA5LTZwkB9NlXf4XPamLxJE8h0gh73rM94xvwRT2CVInw==
@@ -12404,7 +12380,16 @@ ms@2.1.3, ms@^2.0.0, ms@^2.1.1:
   resolved "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz"
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
-msafe-wallet@~2.1.3:
+msafe-plugin-wallet-adapter@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/msafe-plugin-wallet-adapter/-/msafe-plugin-wallet-adapter-0.1.0.tgz#4dce5de77cd84bad72f2a631fe86b911f55c1bd9"
+  integrity sha512-N8xEClExInGpYoMO5IfMS34/MVz5BNCZAxwNh0nWamkuEJP48CI+D2BVIDbj0ESC7aINTq3zMSyCs7vxWrGa7Q==
+  dependencies:
+    "@aptos-labs/wallet-adapter-core" "^0.2.0"
+    aptos "^1.4.0"
+    msafe-wallet "^2.1.3"
+
+msafe-wallet@^2.1.3, msafe-wallet@~2.1.3:
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/msafe-wallet/-/msafe-wallet-2.1.4.tgz#993e2261809c95741360debd3f6000c1d14a7b1f"
   integrity sha512-n27EGv34sMU12QufanlMn8NwCe8MgzIb7K1waDQVSS8icmmsruCrJCqAQMgjmgsSROeX2i4Y3zOuXVza2KJGXg==
@@ -14040,7 +14025,6 @@ proxy-agent@^5.0.0:
     proxy-from-env "^1.0.0"
     socks-proxy-agent "^5.0.0"
 
-proxy-from-env@^1.0.0, proxy-from-env@^1.1.0:
 proxy-from-env@^1.0.0, proxy-from-env@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/proxy-from-env/-/proxy-from-env-1.1.0.tgz"
@@ -16508,6 +16492,11 @@ swiper@^8.4.6:
   dependencies:
     dom7 "^4.0.4"
     ssr-window "^4.0.2"
+
+symbol-observable@^1.0.2:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
+  integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
 
 symbol-observable@^4.0.0:
   version "4.0.0"
