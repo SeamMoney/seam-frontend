@@ -45,8 +45,10 @@ const DappFrame = ({ dapp, viewUrl,selectDapp,goHome }: DappFrameProps) => {
     return (
         <div className="w-full min-w-full">
             <WindowWrapper>
+                <div className="flex flex-row">
                 {DappHeader(dapp_data)}
                 {DappNav(dapp_data,selectDapp,goHome)}
+                </div>
                 {renderIDapp(dapp_data?.url||"")}
                 
             </WindowWrapper>
