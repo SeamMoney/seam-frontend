@@ -1,7 +1,8 @@
 import { useState, createContext, SetStateAction, useContext } from "react";
 
 interface User {
-    // define the shape of the user object
+    id: string;
+    name: string;
 }
 
 interface AuthContextProps {

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Home from "pages/Home";
 
-    interface UserData {
+interface UserData {
+    // this may need to be changed 
     id: string;
     name: string;
 }
@@ -28,15 +29,14 @@ const Login: React.FC<UserData | null> = () => {
       <div className="mb-8 flex flex-col items-center">
         <img src="https://www.seam.money/images/logo.png" width="150" alt="" />
         <h1 className="mb-2 text-2xl">Seam Plus</h1>
-        <span className="text-gray-300">Enter Login Details</span>
       </div>
       <form action="#">
         <div className="mb-4 text-lg">
-          <input className="rounded-3xl border-none bg-yellow-400 bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md" type="text" name="name" placeholder="id@email.com" />
+          <input className="text-black rounded-3xl border-none bg-yellow-400 bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md" type="text" name="name" placeholder="your@email.com" />
         </div>
 
         <div className="mb-4 text-lg">
-          <input className="rounded-3xl border-none bg-yellow-400 bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md" type="Password" name="name" placeholder="*********" />
+          <input className="text-black rounded-3xl border-none bg-yellow-400 bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md" type="Password" name="name" placeholder="*********" />
         </div>
         <div className="mt-8 flex justify-center text-lg text-black">
           {user ? <></> : <button onClick={handleLogin} type="submit" className="border border-[3px] border-dashed rounded-3xl bg-yellow-400 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-yellow-600">Login</button>}

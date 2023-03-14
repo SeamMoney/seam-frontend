@@ -8,11 +8,13 @@ import { AuthProvider } from "components/Auth";
 function App() {
   return (
     <div className="bg-darkgray min-h-screen relative z-10">
+      <AuthProvider>
       <Web3Provider>
         <Wrapper>
           <RouterProvider router={BaseRouter()} />
         </Wrapper>
       </Web3Provider>
+      </AuthProvider>
     </div>
   );
 }
