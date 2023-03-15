@@ -19,7 +19,6 @@ import SeamPass from "pages/SeamPass";
 import NodePage from "pages/NodePage";
 import Home from "pages/Home";
 import Login from "pages/Login";
-import { AuthProvider } from "components/Auth";
 import { Trade } from "pages/Trade";
 import { Dashboard } from 'pages/Dashboard';
 import {
@@ -37,19 +36,18 @@ import Validators from "sections/staking/Validators";
 import UserExplorer from "sections/UserExplorer";
 import { dappByName, dappsByAddress, isDapp } from "util/dappUtils";
 import Wrapper from './Wrapper';
-import React, { useState } from "react";
-
+import React, { useContext, useState } from "react";
+import { PrivateRouter } from "PrivateRouter";
 export const BaseRouter = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
-        <Route path="/trade" element={<Trade />} />
-        <Route path="/" element={<Dashboard />} />
-        <Route path="powersets" element={<Trade />} />
-        <Route element={<Dao />} path="dao" />
-
+        <Route path="/trade" element={<PrivateRouter Component={Trade} />} />
+        <Route path="/" element={<PrivateRouter Component={Dashboard} />} />
+        <Route path="powersets" element={<PrivateRouter Component={Trade} />} />
+        <Route element={<PrivateRouter Component={Dao} />} path="dao" />
         <Route
-          element={<AptosStats />}
+          element={<PrivateRouter Component={AptosStats} />}
           path="stats/:network/"
           loader={async ({
             request,
@@ -64,15 +62,15 @@ export const BaseRouter = () => {
             return aptStats(client);
           }}
         />
-        <Route path="detail" element={<DetailPage />} />
-        <Route path="staking" element={<NodePage />} />
+        <Route path="detail" element={<PrivateRouter Component={DetailPage} />} />
+        <Route path="staking" element={<PrivateRouter Component={NodePage} />} />
         <Route
           path="explorer"
-          element={<Explorer />}
+          element={<PrivateRouter Component={Explorer} />}
           errorElement={<ErrorPage />}
         >
           <Route
-            element={<ModuleExplorer />}
+            element={<PrivateRouter Component={ModuleExplorer} />}
             path="modules/:network/:addr"
             // loading={<div>loading</div>}
             loader={async ({
@@ -83,7 +81,6 @@ export const BaseRouter = () => {
               params: any;
             }) => {
               const client = getClient(params.network || "Mainnet");
-
               console.log("running module loader");
               return loadModules(params.addr || "0x1", client);
             }}
@@ -100,13 +97,12 @@ export const BaseRouter = () => {
               params: any;
             }) => {
               const client = getClient(params.network || "Mainnet");
-
               console.log("running module loader");
               return loadCoins(client);
             }}
           /> */}
           <Route
-            element={<Validators />}
+            element={<PrivateRouter Component={Validators} />}
             path="validators/"
             loader={async ({
               request,
@@ -120,12 +116,10 @@ export const BaseRouter = () => {
                 await loadValidators();
               const vSet = (validatorSet.data as any).active_validators;
               const info = (validatorInfo.data as any).validators;
-
               const vSetData = {
                 validators: vSet,
                 // count: vSet.active_validators.length(),
               };
-
               console.log("V INfo", info);
               return {
                 validatorHistory: info,
@@ -134,17 +128,13 @@ export const BaseRouter = () => {
               };
             }}
           ></Route>
-
-          <Route element={<UserExplorer />} path="user"></Route>
-
-          <Route element={<IDE />} path="ide"></Route>
-
-          <Route element={<SeamPass />} path="seampass"></Route>
-
-          <Route element={<DappsView />} path="dapps/:dappName"></Route>
+          <Route element={<PrivateRouter Component={UserExplorer} />} path="user"></Route>
+          <Route element={<PrivateRouter Component={IDE} />} path="ide"></Route>
+          <Route element={<PrivateRouter Component={SeamPass} />} path="seampass"></Route>
+          <Route element={<PrivateRouter Component={DappsView} />} path="dapps/:dappName"></Route>
           <Route
+            element={<PrivateRouter Component={DappInfo} />}
             path="info/:dapp/"
-            element={<DappInfo />}
             loader={async ({
               request,
               params,
@@ -158,13 +148,10 @@ export const BaseRouter = () => {
             }}
           />
         </Route>
-
         {/* Auth assignment for CSC424 ----------------------------- */}
-
-        <Route path="*" element={<p>There's nothing here: 404!</p>} />
-          <Route element={<Home />} path="home"/> 
-          <Route element={<Login id={""} name={""} />} path="login"/> 
-
+        <Route path="*" element={<PrivateRouter Component={<p>There's nothing here: 404!</p>} />}/>
+        <Route element={<PrivateRouter Component={Home} />} path="home"/>
+        <Route element={<Login />} path="login"/>
       </Route>
     )
   );

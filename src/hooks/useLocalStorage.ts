@@ -1,5 +1,4 @@
 // store user data in local storage
-
 export const storeUserData = (userData: any) => {
     localStorage.setItem("userData", JSON.stringify(userData));
 }
