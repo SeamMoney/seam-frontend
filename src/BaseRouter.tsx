@@ -17,6 +17,7 @@ import DetailPage from "pages/DetailPage";
 import IDE from "pages/IDE";
 import SeamPass from "pages/SeamPass";
 import NodePage from "pages/NodePage";
+import TransactionPage from "pages/TransactionPage";
 import Home from "pages/Home";
 import Login from "pages/Login";
 import { AuthProvider } from "components/Auth";
@@ -47,6 +48,7 @@ export const BaseRouter = () => {
         <Route path="/" element={<Dashboard />} />
         <Route path="powersets" element={<Trade />} />
         <Route element={<Dao />} path="dao" />
+        <Route path="txn" element={<TransactionPage />} />
 
         <Route
           element={<AptosStats />}

@@ -15,6 +15,7 @@ const BASE_BOX = "outline w-1/3  outline-8 outline-dashed h-auto py-3 px-8 m-4 i
 const BASE_GRAD = " bg-gradient-to-tl from-rose-400 via-pastelBlue to-blue2 m-3"
 const BASE_WINDOW = "mockup-window rounded-3xl border-blue px-6 py-3  mockup-window-outline border-4 shadow-xl shadow-pink w-full pt-2 m-3"
 
+const XL_INPUT = "bg-white bg-opacity-10 text-white rounded-xl text-left px-3 py-2 m-2"
 // const OUTLINE = "outline-dashed"
 
 export const BASE_TYPES = {
@@ -31,5 +32,6 @@ export const BASE_TYPES = {
   BASE_OUTLINE,
   BASE_GRAD,
   BASE_WINDOW,
-  BASE_BOX
+  BASE_BOX,
+  XL_INPUT,
 };

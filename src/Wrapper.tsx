@@ -13,28 +13,7 @@ import ModuleExplorer from "sections/modules/ModuleExplorer";
 import UserExplorer from "sections/UserExplorer";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import NodePage from "pages/NodePage";
-import {
-  WalletProvider,
-  // HyperPayWalletAdapter,
-  // AptosWalletAdapter,
-  // HippoExtensionWalletAdapter,
-  MartianWalletAdapter,
-  FewchaWalletAdapter,
-  PontemWalletAdapter,
-  RiseWalletAdapter,
-  SpikaWalletAdapter,
-  FletchWalletAdapter,
-  SpacecyWalletAdapter,
-  
-  // AptosSnapAdapter,
-  NightlyWalletAdapter,
-  // BitkeepWalletAdapter,
-  // TokenPocketWalletAdapter,
-  // BloctoWalletAdapter,
-  // WalletAdapterNetwork,
-  // ONTOWalletAdapter,
-  // FoxWalletAdapter
-} from "@manahippo/aptos-wallet-adapter";
+
 import { ReactNode, useState, useMemo } from "react";
 import { GlobalStateProvider } from "GlobalState";
 
@@ -97,7 +76,9 @@ const Wrapper: React.FC<WrapperProps> = ({ children }) => {
         {walletModalOpen ? (
           <WalletModal isOpen={walletModalOpen} setIsOpen={setWalletModal} />
         ) : null}
+        <div>
         <SeamFooter />
+        </div>
       </AptosWalletAdapterProvider>
     </GlobalStateProvider>
 
