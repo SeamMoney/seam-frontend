@@ -6,6 +6,7 @@ import { Types } from "aptos";
 import { loadTxs } from "hooks/useTransaction";
 import TxnList from "sections/TxnList";
 import DappFrame from "./DappFrame";
+import { gql } from "@apollo/client";
 import Icons from "components/Icons";
 import DappLogo from "./DappLogo";
 import DappBadge from "components/DappBadge";
@@ -17,30 +18,9 @@ import { DappContextProvider, useDappContext } from "./DappContext";
 import { Outlet, useParams } from "react-router-dom";
 import WindowWrapper from "components/etc/WindowWrapper";
 import SplashFrame from "./SplashFrame";
-import { gql } from "@apollo/client";
+import SwitchView from "sections/SwitchView";
 
 
-const GET_NFTS = gql`
-    query CurrentTokens($owner_address: String, $offset: Int) {
-  current_token_datas(
-    where: {owner_address: {_eq: $owner_address}, amount: {_gt: "0"}}
-    order_by: {last_transaction_version: desc}
-    offset: $offset
-  ) {
-    token_data_id_hash
-    name
-    collection_name
-    property_version
-  }
-}`;
-
-
-const GET_TX_WITH_DAPP = gql`
-    query MyQuery($owner_address: String, $offset: Int) {
-    user_transactions(
-      where: {entry_function_id_str: {_eq: "0x1::"}, sender: {_eq: "user"}}
-    )
-  }`;
 
 const DappsView = () => {
     let { dappName } = useParams();
@@ -51,7 +31,7 @@ const DappsView = () => {
     const [txns,setTxs] = useState<any[]>([]);
     const [otherTxns,setOther] = useState<any[]>([]);
 
-    const [dappStack, setDappStack] = useState<any[]>(recentOpen);
+    const [dappStack, setDappStack] = useState<any[]>([dappByName(dappName || "home"), ...recentOpen]);
     // const { isHome, selectDapp, toggleHome } = useDappContext()
 
     const pushDapp = (curr: any) => {
@@ -98,9 +78,12 @@ const DappsView = () => {
 
 
     return (
-        <div className="flex flex-col w-full p-6 relative items-start justify-start ">
+        <div className="flex flex-row w-full p-2 relative items-start justify-start ">
                 {/* <Draggable>                     */}
                 {/* <WindowWrapper> */}
+                {/* {home ? (
+                            <SplashFrame selectDapp={changeDapp} />)
+                            : null} */}
                 <div className="px-6 w-full">
                     <div className="w-full items-center justify-center">
                     {home ? (
@@ -112,7 +95,15 @@ const DappsView = () => {
                     </div>
                 </div>
                 {/* </WindowWrapper> */}
+
+                <SwitchView
+                    tab_names={["Txns", "Assets","Stats"]}
+                >
                 {txns?.length !== 0 ? <TxnList txns={txns || []} address={selectedDapp.address} /> : null}
+                {txns?.length !== 0 ? <TxnList txns={txns || []} address={selectedDapp.address} /> : null}
+
+                {txns?.length !== 0 ? <TxnList txns={txns || []} address={selectedDapp.address} /> : null}
+                </SwitchView>
                 <ReactTooltip place="top" textColor="white" html={true} multiline={true} />
         </div>
     );
