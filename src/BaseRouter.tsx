@@ -64,13 +64,14 @@ export const BaseRouter = () => {
         />
         <Route path="detail" element={<PrivateRouter Component={DetailPage} />} />
         <Route path="staking" element={<PrivateRouter Component={NodePage} />} />
+
         <Route
           path="explorer"
-          element={<PrivateRouter Component={Explorer} />}
+          element={<Explorer />}
           errorElement={<ErrorPage />}
         >
           <Route
-            element={<PrivateRouter Component={ModuleExplorer} />}
+            element={<ModuleExplorer />}
             path="modules/:network/:addr"
             // loading={<div>loading</div>}
             loader={async ({
@@ -81,6 +82,7 @@ export const BaseRouter = () => {
               params: any;
             }) => {
               const client = getClient(params.network || "Mainnet");
+
               console.log("running module loader");
               return loadModules(params.addr || "0x1", client);
             }}
@@ -102,6 +104,96 @@ export const BaseRouter = () => {
             }}
           /> */}
           <Route
+            element={<Validators />}
+            path="validators/"
+            loader={async ({
+              request,
+              params,
+            }: {
+              request: any;
+              params: any;
+            }) => {
+              console.log("running validator loader");
+              const { validatorInfo, validatorSet, defaultConfig } =
+                await loadValidators();
+              const vSet = (validatorSet.data as any).active_validators;
+              const info = (validatorInfo.data as any).validators;
+
+              const vSetData = {
+                validators: vSet,
+                // count: vSet.active_validators.length(),
+              };
+
+              console.log("V INfo", info);
+              return {
+                validatorHistory: info,
+                validatorInfo: vSetData,
+                defaultConfig,
+              };
+            }}
+          ></Route>
+
+          <Route element={<UserExplorer />} path="user"></Route>
+
+          <Route element={<IDE />} path="ide"></Route>
+
+          <Route element={<SeamPass />} path="seampass"></Route>
+
+          <Route element={<DappsView />} path="dapps/:dappName"></Route>
+          <Route
+            path="info/:dapp/"
+            element={<DappInfo />}
+            loader={async ({
+              request,
+              params,
+            }: {
+              request: any;
+              params: any;
+            }) => {
+              console.log("params are:", params);
+              const dapp = dappByName(params.dapp || "");
+              return { ...dapp, txs: loadTxs(dapp?.address || "0x1") };
+            }}
+          />
+        </Route>
+        {/* <Route
+          path="explorer"
+          element={<PrivateRouter Component={Explorer} />}
+          errorElement={<ErrorPage />}
+        >
+          <Route
+            element={<PrivateRouter Component={ModuleExplorer} />}
+            path="modules/:network/:addr"
+            // loading={<div>loading</div>}
+            loader={async ({
+              request,
+              params,
+            }: {
+              request: any;
+              params: any;
+            }) => {
+              const client = getClient(params.network || "Mainnet");
+              console.log("running module loader");
+              return loadModules(params.addr || "0x1", client);
+            }} */}
+          {/* /> */}
+          {/* <Route
+            element={<Coins />}
+            path="coins"
+            // loading={<div>loading</div>}
+            loader={async ({
+              request,
+              params,
+            }: {
+              request: any;
+              params: any;
+            }) => {
+              const client = getClient(params.network || "Mainnet");
+              console.log("running module loader");
+              return loadCoins(client);
+            }}
+          /> */}
+          {/* <Route
             element={<PrivateRouter Component={Validators} />}
             path="validators/"
             loader={async ({
@@ -147,7 +239,7 @@ export const BaseRouter = () => {
               return { ...dapp, txs: loadTxs(dapp?.address || "0x1") };
             }}
           />
-        </Route>
+        </Route> */}
         {/* Auth assignment for CSC424 ----------------------------- */}
         <Route path="*" element={<PrivateRouter Component={<p>There's nothing here: 404!</p>} />}/>
         <Route element={<PrivateRouter Component={Home} />} path="home"/>
