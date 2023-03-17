@@ -19,6 +19,7 @@ import SeamPass from "pages/SeamPass";
 import NodePage from "pages/NodePage";
 import Home from "pages/Home";
 import Login from "pages/Login";
+import Register from "pages/Register";
 import { Trade } from "pages/Trade";
 import { Dashboard } from 'pages/Dashboard';
 import {
@@ -244,6 +245,7 @@ export const BaseRouter = () => {
         <Route path="*" element={<PrivateRouter Component={<p>There's nothing here: 404!</p>} />}/>
         <Route element={<PrivateRouter Component={Home} />} path="home"/>
         <Route element={<Login />} path="login"/>
+        <Route element={<Register />} path="register"/>
       </Route>
     )
   );
