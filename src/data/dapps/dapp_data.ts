@@ -377,6 +377,7 @@ export const dapps = [
     "docs": "",
     "github": "",
     "image": "ferum.png",
+    "address":"0x728891241aa0dc576e23fa368c168f657b1364eb909c8444f28bc7e4a4a2268d",
     "twitter": "https://twitter.com/ferumxyz",
     "discord": "https://t.co/8DHuqgzhWo",
   },
