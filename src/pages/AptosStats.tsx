@@ -97,19 +97,11 @@ const AptosStats = () => {
 
     const [naturalLanguage, setNaturalLanguage] = useState('');
     const [schema, setSchema] = useState(null);
-    useEffect(() => {
-        const q = useQuery(gql(QUERY_TEMPLATE), {
-            client,
-            }).then((data) => {
-                setSchema(data);
-            });
-    }, []);
+    
 
 
     const handleGenerateQuery =  () => {
-        const schema = useQuery(gql(QUERY_TEMPLATE), {
-            client,
-            });
+        
         }
     return (
         <div className="h-screen items-center">
