@@ -1,40 +1,68 @@
 import { useState, createContext, SetStateAction, useContext } from "react";
+import axios from "axios";
+
 export interface User {
     name: string;
     password: string;
 }
+
+export interface RegisterUser {
+    name: string;
+    password: string;
+    confirm: string;
+}
+
 interface AuthContextProps {
     token: string | null;
     error: string | null;
-    login: ( user: User) => void;
+    message: string | null;
+    login: (user: User) => void;
     logout: () => void;
+    register: (user: RegisterUser) => void;
 }
+
 interface AuthProviderProps {
     children: React.ReactNode;
 }
-const testUser: User = {
-    name: 'bj',
-    password: 'pass424'
-}
+
 const AuthContext = createContext<AuthContextProps | null>(null);
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [token, setToken] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const login = (user: User) => {
-        if (testUser.name === user.name && testUser.password === user.password) {
-            setToken("1234"); // Set your JWT or any other token value here
+    const [message, setMsg] = useState<string | null>(null);
+
+    const login = async (user: User) => {
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, {
+            username: user.name,
+            password: user.password
+        });
+
+        if(response.data.error) {
+            setError(response.data.error);
         } else {
-            setError("Username or password is invalid!");
+            setToken(response.data.token);
         }
     };
 
+    const register = async (user: RegisterUser) => {
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, {
+            username: user.name,
+            password: user.password,
+            confirmPassword: user.confirm
+        });
+        if(response.data.error) {
+            setError(response.data.error);
+        } else {
+            setMsg(response.data.message);
+        }
+    }
+
     const logout = () => {
-        // setUser(null);
         setToken(null);
     };
 
     return (
-        <AuthContext.Provider value={{ token, error, login, logout }}>
+        <AuthContext.Provider value={{ token, error, message, login, logout, register }}>
         {children}
         </AuthContext.Provider>
     );
