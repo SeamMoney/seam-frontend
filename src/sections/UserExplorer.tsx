@@ -112,7 +112,7 @@ const UserExplorer = () => {
     <div className="mx-2 w-full justify-center p-2">
       <div>
         <div>
-        
+         
             {AddrAssets(account?.address.toString()||'0x1')}
         </div>
       </div>

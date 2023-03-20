@@ -2,6 +2,10 @@ import { AptosClient } from "aptos";
 import { useState } from "react";
 import { FaSave } from "react-icons/fa";
 import ParserServer from '../sections/ide/ParserServer'
+import "ace-builds/src-noconflict/mode-graphqlschema";
+import "ace-builds/src-noconflict/theme-monokai";
+import { mock_toml } from "../constants";
+import AceEditor from "react-ace";
 type File = {
     name: string;
     script: string;
@@ -12,12 +16,13 @@ type File = {
 interface EditorProps {
     file: File;
     module: string;
+    saveFile: (file:File) => void;
 }
 
 
 const mockScript = (aptIN:any,) => {
     const amnt = aptIN * 100_000_000;
-    const market_id= '0x4d61696e204163636f756e74'
+    const market_id= '0x4d61696e204163636f756e74';
     const script = 
     `script { \n
         use 0x9770fa9c725cbd97eb50b2be5f7416efdfd1f1554beb0750d4dae4c64e860da3::controller;
@@ -30,79 +35,82 @@ const mockScript = (aptIN:any,) => {
 }
 const mockFile = {
     name: "test.move",
-    script: mockScript(1)
+    script: mockScript(1),
+    warnings:[]
+
 }
 
-interface PoolProps {
-    client: AptosClient;
+const mockProject = {
+    name: "test",
+    files: [mockFile],
+    toml: mock_toml
 }
 
-// This page will load a list of user files and show an inbrowser ide
-// From here the user can create new files, edit existing files, and delete files
-// These files will be stored as resources in the user's account
-// from this page the user will be able to compile, test and deploy their contracts
+const loadProjects = () => {
+    if(localStorage.getItem('user_projs') === null){
+        localStorage.setItem('user_projs', JSON.stringify([mockFile]))
+    }
+    return JSON.parse(localStorage.getItem('user_projs') || '[]')
+}
+
 const IDE = () => {
+
+    const saveFile = (file:File) => {
+        console.log(file)
+        const user_projs = loadProjects()
+        const new_projs = user_projs.map((proj:any) => {
+            if(proj.name === file.name){
+                return file
+            } else {
+                return proj
+            }
+        })
+        localStorage.setItem('user_projs', JSON.stringify(new_projs))
+    }
+
+    const user_projs = loadProjects()
+
     return (
     <div className="w-full h-full items-center ">
         <p>IDE</p>
-        <FileEditor file={mockFile} module="temp"/>
+        <FileEditor file={mockFile} saveFile={()=>saveFile}module="temp"/>
     </div>
     )
 }
 
 // const ParserServer = (moveText:string) => {}
 
-const IDEHeader = () =>{
-    return (<div className="flex flex-row items-start justify-center px-3">
-            {/* LOAD File */}
-            <button className="seam-sqr" data-tip="coming soon">
-                Load File
-            </button>
-
-            <button className="seam-sqr" data-tip="coming soon">
-                New Script
-            </button>
-
-            <button className="seam-sqr" data-tip="coming soon">
-                Template Scripts
-            </button>
-
-            {/* Save button */}
-             <button className="seam-sqr" data-tip="coming soon">
-                <FaSave />
-            </button>
-            </div>)
-}
 
 
 const FileEditor = ({
     file,
-    module
+    module,
+    saveFile
 }:EditorProps) => {
 
-    // const handleChange = (e:any) =>{
-    //         setCurrentText(e.event.textValue);
-    // }
 
     const [currentText, setCurrentText] = useState<string>(file.script);
 
     return (
         <div className="mockup-window w-3/4 border-pink rounded-xl mockup-window-outline border-4 shadow-xl  shadow-pink  min-h-1/2 pt-2 m-3">
-<ParserServer/>
-            <div>
-        {/* <div className="multiline h-60">
-        <textarea 
-        className="w-full h-full py-3 mx-3 rounded-2xl bg-white px-5 text-black"
-          name="textValue"
-          value={currentText}
-        //   onChange={(e)=>handleChange(e)}
-        />
-      </div> */}
+{/* <ParserServer/> */}
+<AceEditor
+        mode="graphqlschema"
         
+        theme="monokai"
+        value={currentText}
+        onChange={setCurrentText}
+        name="query-editor"
+        editorProps={{ $blockScrolling: true }}
+        width="100%"
+        height="200px"
+      />
+
+            <div>
 
       </div>
+      <button onClick={()=>saveFile({name:file.name, script:currentText})}> <FaSave/> Save</button>
 
-      {/* <p>{currentText}</p> */}
             </div>
     )}
 

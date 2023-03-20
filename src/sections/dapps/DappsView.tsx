@@ -19,6 +19,7 @@ import { Outlet, useParams } from "react-router-dom";
 import WindowWrapper from "components/etc/WindowWrapper";
 import SplashFrame from "./SplashFrame";
 import SwitchView from "sections/SwitchView";
+import DappTwitter from "./DappTwitter";
 
 
 
@@ -95,12 +96,13 @@ const DappsView = () => {
                     </div>
                 </div>
                 {/* </WindowWrapper> */}
+                {}
 
                 <SwitchView
-                    tab_names={["Txns", "Assets","Stats"]}
+                    tab_names={["Txns", "Twitter","Stats"]}
                 >
                 {txns?.length !== 0 ? <TxnList txns={txns || []} address={selectedDapp.address} /> : null}
-                {txns?.length !== 0 ? <TxnList txns={txns || []} address={selectedDapp.address} /> : null}
+                {selectedDapp?.twitter ? <DappTwitter username={selectedDapp?.twitter} />  : null}
 
                 {txns?.length !== 0 ? <TxnList txns={txns || []} address={selectedDapp.address} /> : null}
                 </SwitchView>
