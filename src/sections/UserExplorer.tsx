@@ -122,11 +122,8 @@ const UserExplorer = () => {
   return (
     <div className="mx-2 w-full justify-center p-2">
       <div>
-        <p>Balances</p>
         <div>
-          {/* {loading ? (
-            <p>Loading...</p>
-          ) : UserBalances(data.current_coin_balances)} */}
+         
             {AddrAssets(account?.address.toString()||'0x1')}
             
         </div>

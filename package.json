@@ -66,6 +66,7 @@
     "@web3-react/core": "^6.1.9",
     "antd": "^4.20.5",
     "apexcharts": "^3.35.0",
+    "apollo": "^2.34.0",
     "apollo-boost": "^0.4.9",
     "aptos": "^1.2.0",
     "axios": "^1.2.0",
