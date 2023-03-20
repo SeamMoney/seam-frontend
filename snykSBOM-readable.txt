@@ -1,0 +1,78 @@
+
+Testing /Users/maxmohammadi/seam-frontend...
+
+Tested 2306 dependencies for known issues, found 13 issues, 45 vulnerable paths.
+
+
+Issues to fix by upgrading:
+
+  Upgrade @visx/axis@2.14.0 to @visx/axis@2.17.0 to fix
+  ✗ Regular Expression Denial of Service (ReDoS) [Medium Severity][https://security.snyk.io/vuln/SNYK-JS-D3COLOR-1076592] in d3-color@1.4.1
+    introduced by @visx/scale@2.2.2 > d3-interpolate@1.4.0 > d3-color@1.4.1 and 9 other path(s)
+
+  Upgrade @visx/grid@2.12.2 to @visx/grid@2.17.0 to fix
+  ✗ Regular Expression Denial of Service (ReDoS) [Medium Severity][https://security.snyk.io/vuln/SNYK-JS-D3COLOR-1076592] in d3-color@1.4.1
+    introduced by @visx/scale@2.2.2 > d3-interpolate@1.4.0 > d3-color@1.4.1 and 9 other path(s)
+
+  Upgrade @visx/marker@2.12.2 to @visx/marker@2.17.0 to fix
+  ✗ Regular Expression Denial of Service (ReDoS) [Medium Severity][https://security.snyk.io/vuln/SNYK-JS-D3COLOR-1076592] in d3-color@1.4.1
+    introduced by @visx/scale@2.2.2 > d3-interpolate@1.4.0 > d3-color@1.4.1 and 9 other path(s)
+
+  Upgrade @visx/scale@2.2.2 to @visx/scale@2.17.0 to fix
+  ✗ Regular Expression Denial of Service (ReDoS) [Medium Severity][https://security.snyk.io/vuln/SNYK-JS-D3COLOR-1076592] in d3-color@1.4.1
+    introduced by @visx/scale@2.2.2 > d3-interpolate@1.4.0 > d3-color@1.4.1 and 9 other path(s)
+
+  Upgrade @visx/shape@2.12.2 to @visx/shape@2.17.0 to fix
+  ✗ Regular Expression Denial of Service (ReDoS) [Medium Severity][https://security.snyk.io/vuln/SNYK-JS-D3COLOR-1076592] in d3-color@1.4.1
+    introduced by @visx/scale@2.2.2 > d3-interpolate@1.4.0 > d3-color@1.4.1 and 9 other path(s)
+
+
+Issues with no direct upgrade or patch:
+  ✗ Denial of Service (DoS) [High Severity][https://security.snyk.io/vuln/SNYK-JS-DECODEURICOMPONENT-3149970] in decode-uri-component@0.2.0
+    introduced by @remix-run/dev@1.7.4 > jscodeshift@0.13.1 > micromatch@3.1.10 > braces@2.3.2 > snapdragon@0.8.2 > source-map-resolve@0.5.3 > decode-uri-component@0.2.0 and 1 other path(s)
+  This issue was fixed in versions: 0.2.2
+  ✗ Regular Expression Denial of Service (ReDoS) [Medium Severity][https://security.snyk.io/vuln/SNYK-JS-HTTPCACHESEMANTICS-3248783] in http-cache-semantics@4.1.0
+    introduced by @remix-run/dev@1.7.4 > xdm@2.1.0 > got@11.8.5 > cacheable-request@7.0.2 > http-cache-semantics@4.1.0 and 1 other path(s)
+  This issue was fixed in versions: 4.1.1
+  ✗ Prototype Pollution [Medium Severity][https://security.snyk.io/vuln/SNYK-JS-JSON5-3182856] in json5@1.0.1
+    introduced by @remix-run/dev@1.7.4 > json5@2.2.1 and 7 other path(s)
+  This issue was fixed in versions: 1.0.2, 2.2.2
+  ✗ Regular Expression Denial of Service (ReDoS) [Medium Severity][https://security.snyk.io/vuln/SNYK-JS-LOADERUTILS-3042992] in loader-utils@3.2.0
+    introduced by @remix-run/dev@1.7.4 > xdm@2.1.0 > loader-utils@2.0.3 and 7 other path(s)
+  This issue was fixed in versions: 1.4.2, 2.0.4, 3.2.1
+  ✗ Regular Expression Denial of Service (ReDoS) [Medium Severity][https://security.snyk.io/vuln/SNYK-JS-LOADERUTILS-3105943] in loader-utils@3.2.0
+    introduced by @remix-run/dev@1.7.4 > xdm@2.1.0 > loader-utils@2.0.3 and 7 other path(s)
+  This issue was fixed in versions: 1.4.2, 2.0.4, 3.2.1
+  ✗ Regular Expression Denial of Service (ReDoS) [High Severity][https://security.snyk.io/vuln/SNYK-JS-NTHCHECK-1586032] in nth-check@1.0.2
+    introduced by react-scripts@5.0.1 > @svgr/webpack@5.5.0 > @svgr/plugin-svgo@5.5.0 > svgo@1.3.2 > css-select@2.1.0 > nth-check@1.0.2
+  This issue was fixed in versions: 2.0.1
+  ✗ Server-side Request Forgery (SSRF) [Medium Severity][https://security.snyk.io/vuln/SNYK-JS-REQUEST-3361831] in request@2.88.2
+    introduced by web3@1.8.0 > web3-bzz@1.8.0 > swarm-js@0.1.42 > eth-lib@0.1.29 > servify@0.1.12 > request@2.88.2
+  No upgrade or patch available
+  ✗ Undesired Behavior [Medium Severity][https://security.snyk.io/vuln/SNYK-JS-STYLEDCOMPONENTS-3149924] in styled-components@5.3.6
+    introduced by @fewcha/web3-react@0.1.35 > styled-components@5.3.6
+  This issue was fixed in versions: 5.3.7
+  ✗ Prototype Pollution [High Severity][https://security.snyk.io/vuln/SNYK-JS-UNSETVALUE-2400660] in unset-value@1.0.0
+    introduced by @remix-run/dev@1.7.4 > jscodeshift@0.13.1 > micromatch@3.1.10 > braces@2.3.2 > snapdragon@0.8.2 > base@0.11.2 > cache-base@1.0.1 > unset-value@1.0.0
+  This issue was fixed in versions: 2.0.1
+  ✗ Insecure Credential Storage [Low Severity][https://security.snyk.io/vuln/SNYK-JS-WEB3-174533] in web3@1.8.0
+    introduced by web3@1.8.0
+  No upgrade or patch available
+  ✗ Sandbox Bypass [High Severity][https://security.snyk.io/vuln/SNYK-JS-WEBPACK-3358798] in webpack@5.74.0
+    introduced by react-scripts@5.0.1 > webpack@5.74.0
+  This issue was fixed in versions: 5.76.0
+  ✗ Regular Expression Denial of Service (ReDoS) [Medium Severity][https://security.snyk.io/vuln/SNYK-JS-WS-1296835] in ws@3.3.3
+    introduced by web3@1.8.0 > web3-bzz@1.8.0 > swarm-js@0.1.42 > eth-lib@0.1.29 > ws@3.3.3
+  This issue was fixed in versions: 7.4.6, 6.2.2, 5.2.3
+
+
+
+Organization:      maxmohammadi
+Package manager:   yarn
+Target file:       yarn.lock
+Project name:      seam
+Open source:       no
+Project path:      /Users/maxmohammadi/seam-frontend
+Licenses:          enabled
+
+
