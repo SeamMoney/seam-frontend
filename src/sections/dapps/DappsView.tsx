@@ -63,15 +63,17 @@ const DappsView = () => {
         />
         
         <div className="flex flex-col w-full p-2 relative items-start justify-start ">
-            <div className="flex flex-col">
-            <h3>Recents</h3>
+            <div className="flex flex-row">
             <div className="flex flex-row justify-start p-1"></div>
           {dappStack.map((dapp, index) => (
-            <button  className=""key={index} onClick={() => changeDapp(dapp)}>
-                
+            <button  className="seam-button" key={index} onClick={() => changeDapp(dapp)}>
+            <div className="flex flex-row items-center">
                 {DappLogo(dapp.image)}
-                
+                <p className="text-bold text-center">
               {dapp.name}
+              </p>
+            </div>  
+
             </button>
           ))}
             </div>
