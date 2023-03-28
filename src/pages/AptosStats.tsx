@@ -4,52 +4,15 @@ import AceEditor from "react-ace";
 import { Configuration, OpenAIApi } from "openai";
 import "ace-builds/src-noconflict/mode-graphqlschema";
 import "ace-builds/src-noconflict/theme-monokai";
-// import { useClient } from "@apollo/react-hooks";
-const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
-  });
-  const openai = new OpenAIApi(configuration);
-  
-  
-const client = new ApolloClient({
-  uri: "https://indexer.mainnet.aptoslabs.com/v1/graphql",
-  cache: new InMemoryCache(),
-});
-
-const QUERY_TEMPLATE = `{
-    __schema {
-      queryType {
-        fields	{
-          name
-          description
-        }
-      }
-    }
-  }`;
+import { useClient } from "hooks/useAptos";
+import { useGqlClient,QUERY_TEMPLATE, } from "hooks/useGql";
 
 
-  
 
-  async function generateQuery(schema:string, naturalLanguage:string) {
-    // Call OpenAI's completions API to generate the query
-    // Make sure to replace 'your-openai-api-key' with your actual API key
-    const response = await openai.createCompletion({
-      model: 'text-davinci-003',
-      prompt: `Given the GraphQL schema:\n${schema}\nGenerate a query based on the following natural language description:\n${naturalLanguage}`,
-    },
-      {
-        timeout: 10000,
-      }
-    );
-  
-    if (response.data.choices && response.data.choices.length > 0) {
-      return response.data.choices[0];
-    } else {
-      return 'error';
-    }
-  }
+
 
 function QueryRunner() {
+  const client = useGqlClient();
   const [indexer, setIndexer] = useState("");
 //   const client= useClient()
   const [query, setQuery] = useState(QUERY_TEMPLATE);
@@ -92,14 +55,11 @@ function QueryRunner() {
   );
 }
 
-
 const AptosStats = () => {
 
     const [naturalLanguage, setNaturalLanguage] = useState('');
     const [schema, setSchema] = useState(null);
     
-
-
     const handleGenerateQuery =  () => {
         
         }

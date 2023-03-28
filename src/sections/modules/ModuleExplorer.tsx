@@ -16,6 +16,8 @@ import ModuleOutline from "components/etc/ModuleOutline";
 import { Link, Outlet, useLoaderData, useParams } from "react-router-dom";
 import SwitchView from "sections/SwitchView";
 import AddDappModal from "modals/AddDappModal";
+import WindowWrapper from "components/etc/WindowWrapper";
+import ModuleUsage from "./ModuleUsage";
 
 const ModuleExplorer = () => {
   let mod = useLoaderData() as Types.MoveModuleBytecode[];
@@ -185,6 +187,15 @@ const ModuleExplorer = () => {
                 params={selectedFunction?.params}
                 generic_types={selectedFunction?.generic_type_params}
                 client={client}
+              />
+            ) : null}
+
+            {selectedModule && selectedFunction ? (
+              <ModuleUsage 
+                address={selectedAddress}
+                module={selectedModule.abi?.name||"0x1"}
+                func={selectedFunction.name}
+
               />
             ) : null}
           </div>

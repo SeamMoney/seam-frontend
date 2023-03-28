@@ -40,7 +40,26 @@ export const format_date = (date:number) => {
         const unix_ts = Number(date);
         const diff = (Date.now()*1000 - unix_ts)/1000000/60/60
         return diff.toFixed(1);
+}
+
+export const format_date2 = (date:any) => {
+    // 2023-03-27T22:54:53
+    const ago = new Date(date).getTime();
+    const now = new Date().getTime();
+    const diff = (now - ago)
+    const diffDays = Math.ceil(diff / (1000 * 60 * 60 * 24));
     
+    if (diffDays<=1){
+        const diffHours = Math.ceil(diff / (1000 * 60 * 60));
+        if (diffHours<1){
+            const diffMins = Math.ceil(diff / (1000 * 60));
+            if (diffMins<1){
+                return "Just now";
+            }
+            return diffMins + " mins ago";
+        } 
+    }
+    return diffDays;
 
 }
 

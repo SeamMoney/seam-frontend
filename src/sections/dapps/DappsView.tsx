@@ -36,6 +36,11 @@ const DappsView = () => {
     // const { isHome, selectDapp, toggleHome } = useDappContext()
 
     const pushDapp = (curr: any) => {
+        if(dappStack.includes(curr)) {
+            const newStack = dappStack.filter((dapp) => dapp !== curr);
+            setDappStack(newStack);
+            return
+        }
         const newStack = [curr, ...dappStack]
         setDappStack(newStack);
     }

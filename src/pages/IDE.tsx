@@ -31,10 +31,10 @@ const mockScript = (aptIN:any,) => {
     const market_id= '0x4d61696e204163636f756e74';
     const script = 
     `script { \n
-        use 0x9770fa9c725cbd97eb50b2be5f7416efdfd1f1554beb0750d4dae4c64e860da3::controller;
+        
         fun main(sender: &signer) {
-            controller::register_user();
-            controller::deposit("${market_id}", "${amnt}", false);
+            0xaa90e0d9d16b63ba4a289fb0dc8d1b454058b21c9b5c76864f825d5c1f32582e::momentum_safe::do_nothing();
+            
         }   
     }`
     return script;
