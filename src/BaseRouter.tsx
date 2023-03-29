@@ -71,6 +71,11 @@ export const BaseRouter = () => {
           errorElement={<ErrorPage />}
         >
           <Route
+          path="GQLstats"
+          element={<AptosStats />}
+          errorElement={<ErrorPage />}
+        ></Route>
+          <Route
             element={<ModuleExplorer />}
             path="modules/:network/:addr"
             // loading={<div>loading</div>}
@@ -87,22 +92,22 @@ export const BaseRouter = () => {
               return loadModules(params.addr || "0x1", client);
             }}
           />
-          {/* <Route
+          <Route
             element={<Coins />}
             path="coins"
             // loading={<div>loading</div>}
-            loader={async ({
-              request,
-              params,
-            }: {
-              request: any;
-              params: any;
-            }) => {
-              const client = getClient(params.network || "Mainnet");
-              console.log("running module loader");
-              return loadCoins(client);
-            }}
-          /> */}
+            // loader={async ({
+            //   request,
+            //   params,
+            // }: {
+            //   request: any;
+            //   params: any;
+            // }) => {
+            //   const client = getClient(params.network || "Mainnet");
+            //   console.log("running module loader");
+            //   return loadCoins(client);
+            // }}
+          />
           <Route
             element={<Validators />}
             path="validators/"

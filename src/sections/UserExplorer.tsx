@@ -40,21 +40,6 @@ const GET_NFTS = gql`
   }
 }`;
 
-// const lookup_coin = (
-//   owner_address: string,
-//   coin_type: string,
-//   amount: number,
-//   last_transaction_timestamp: number
-// ) => {
-//   const balance = (amount / 100000000).toFixed(3);
-  
-//   const symbol = get_symbol(coin_type);
-//   const image = tokensJson.find(
-//     (token: any) => token.symbol === symbol
-//   )?.logo_url;
-//   return { n: balance, symbol, image };
-// };
-
 
 const UserNFTs = ({address}:{address:string}) => {
     const { loading, error, data } = useQuery(GET_NFTS,
@@ -96,14 +81,6 @@ const UserExplorer = () => {
   const client = useClient();
   const [txs, setTxs] = useState<Types.Transaction[]>([]);
 
-  // const load_balances = () => {
-  //     console.log("loading balances");
-
-  // const { loading, error, data } = useQuery(GET_TOKENS,
-  //     {variables: { owner_address: account?.address.toString()||"0x1", offset: 0 },
-  // });
-  
-
   useEffect(() => {
     if (connected && account != null) {
       loadAccount(account.address?.toString() || "", client);
@@ -113,8 +90,7 @@ const UserExplorer = () => {
       });
     }
   }, [account]);
-  //   if (loading) return <p>Loading...</p>;
-  //   if (error) return <p>Error : {error.message}</p>;
+
 
 
 
@@ -122,18 +98,12 @@ const UserExplorer = () => {
   return (
     <div className="mx-2 w-full justify-center p-2">
       <div>
-        <p>Balances</p>
         <div>
-          {/* {loading ? (
-            <p>Loading...</p>
-          ) : UserBalances(data.current_coin_balances)} */}
+         
             {AddrAssets(account?.address.toString()||'0x1')}
             
         </div>
-
-        {/* {error ? <p>{error.toString()}</p> : <p>Loaded</p>} */}
       </div>
-
       <div className="flex flex-row m-3 items-start justify-start">
         {account?.address ? (
           <div className="flex flex-col ">
@@ -145,8 +115,6 @@ const UserExplorer = () => {
             <SwitchView tab_names={["Transactions","Nfts","Resources"]}>
             <TxnList txns={txs} address={account?.address.toString()} />
             <UserNFTs address={account?.address.toString()} />
-            {/* <ModuleTypes module={selectedModule} /> */}
-
             <ResourceDetailView
               showDetails={true}
               showUnder={true}

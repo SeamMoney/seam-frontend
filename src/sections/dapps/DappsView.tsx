@@ -13,12 +13,13 @@ import DappBadge from "components/DappBadge";
 import ReactTooltip from "react-tooltip";
 import Draggable from 'react-draggable';
 import { dappByName, dappsByAddress, shuffle } from "util/dappUtils";
-// import {shuffle} from 'util
 import { DappContextProvider, useDappContext } from "./DappContext";
 import { Outlet, useParams } from "react-router-dom";
 import WindowWrapper from "components/etc/WindowWrapper";
 import SplashFrame from "./SplashFrame";
 import SwitchView from "sections/SwitchView";
+import DappTwitter from "./DappTwitter";
+import ReactSelect from "react-select";
 
 
 
@@ -31,59 +32,56 @@ const DappsView = () => {
     const [txns,setTxs] = useState<any[]>([]);
     const [otherTxns,setOther] = useState<any[]>([]);
 
-    const [dappStack, setDappStack] = useState<any[]>([dappByName(dappName || "home"), ...recentOpen]);
+    const [dappStack, setDappStack] = useState<any[]>([dappByName("Topaz"), ...recentOpen]);
     // const { isHome, selectDapp, toggleHome } = useDappContext()
 
     const pushDapp = (curr: any) => {
+        if(dappStack.includes(curr)) {
+            const newStack = dappStack.filter((dapp) => dapp !== curr);
+            setDappStack(newStack);
+            return
+        }
         const newStack = [curr, ...dappStack]
         setDappStack(newStack);
     }
 
-    // const lendFunctions = [
-    //     {
-
-    // ];
-
-    const loadOthers = async (dappaddress: string) => {
-      const alike = `%${dappaddress}%`;
-      const q = gql`
-      query CurrentTxs($owner_address: String, $offset: Int) {
-    user_transactions(
-      where: {entry_function_id_str: {_like: alike}, sender: {_eq: "user"}}
-      order_by: {last_transaction_version: desc}
-      offset: $offset
-    ) {
-      token_data_id_hash
-      name
-      collection_name
-      metadata_uri
-      supply
-      maximum
-      royalty_points_denominator
-    }
-    }`;
-    };
 
     const changeDapp = (dapp: any) => {
         setHome(false);
         setSelectedDapp(dapp);
+        pushDapp(dapp);
         loadTxs(dapp.address, dapp.client).then((res) => {
             setTxs(res);
         }
         );
-
-
     }
 
-
+    
 
     return (
-        <div className="flex flex-row w-full p-2 relative items-start justify-start ">
-                {/* <Draggable>                     */}
-                {/* <WindowWrapper> */}
-                {/* {home ? (
-                            <SplashFrame selectDapp={changeDapp} />)
-                            : null} */}
+        <div>
+<ReactSelect
+            className="w-full text-black"
+          options={dapps.map((dapp) => ({ value: dapp.name, label: dapp.name }))}
+          onChange={(name:any)=>changeDapp(dappByName(name.value))}
+          placeholder="Search for a Dapp..."
+        />
+        
+        <div className="flex flex-col w-full p-2 relative items-start justify-start ">
+            <div className="flex flex-row">
+            <div className="flex flex-row justify-start p-1"></div>
+          {dappStack.map((dapp, index) => (
+            <button  className="seam-button" key={index} onClick={() => changeDapp(dapp)}>
+            <div className="flex flex-row items-center">
+                {DappLogo(dapp.image)}
+                <p className="text-bold text-center">
+              {dapp.name}
+              </p>
+            </div>  
+
+            </button>
+          ))}
+            </div>
                 <div className="px-6 w-full">
                     <div className="w-full items-center justify-center">
                     {home ? (
@@ -94,17 +92,16 @@ const DappsView = () => {
                         
                     </div>
                 </div>
-                {/* </WindowWrapper> */}
-
                 <SwitchView
-                    tab_names={["Txns", "Assets","Stats"]}
+                    tab_names={["Txns", "Twitter","Stats"]}
                 >
                 {txns?.length !== 0 ? <TxnList txns={txns || []} address={selectedDapp.address} /> : null}
-                {txns?.length !== 0 ? <TxnList txns={txns || []} address={selectedDapp.address} /> : null}
+                {selectedDapp?.twitter ? <DappTwitter username={selectedDapp?.twitter} />  : null}
 
                 {txns?.length !== 0 ? <TxnList txns={txns || []} address={selectedDapp.address} /> : null}
                 </SwitchView>
                 <ReactTooltip place="top" textColor="white" html={true} multiline={true} />
+        </div>
         </div>
     );
 }

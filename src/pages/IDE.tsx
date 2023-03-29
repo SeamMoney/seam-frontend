@@ -1,7 +1,14 @@
-import { AptosClient } from "aptos";
+import { AptosAccount, AptosClient, TokenClient } from "aptos";
 import { useState } from "react";
-import { FaSave } from "react-icons/fa";
+import { FaSave, FaTimes } from "react-icons/fa";
 import ParserServer from '../sections/ide/ParserServer'
+import "ace-builds/src-noconflict/mode-graphqlschema";
+import "ace-builds/src-noconflict/theme-monokai";
+// import  mock_toml  from "../constants";
+import AceEditor from "react-ace";
+import { useClient } from "hooks/useAptos";
+import {useWallet} from "@aptos-labs/wallet-adapter-react";
+// const tokenClient = new TokenClient(useClient());
 type File = {
     name: string;
     script: string;
@@ -11,99 +18,228 @@ type File = {
 
 interface EditorProps {
     file: File;
+    openFiles: File[];
     module: string;
+    saveFile: (file:File) => void;
+    selectFile: (file:File) => void;
+    closeFile: (file:File) => void;
 }
 
 
 const mockScript = (aptIN:any,) => {
     const amnt = aptIN * 100_000_000;
-    const market_id= '0x4d61696e204163636f756e74'
+    const market_id= '0x4d61696e204163636f756e74';
     const script = 
     `script { \n
-        use 0x9770fa9c725cbd97eb50b2be5f7416efdfd1f1554beb0750d4dae4c64e860da3::controller;
+        
         fun main(sender: &signer) {
-            controller::register_user();
-            controller::deposit("${market_id}", "${amnt}", false);
+            0xaa90e0d9d16b63ba4a289fb0dc8d1b454058b21c9b5c76864f825d5c1f32582e::momentum_safe::do_nothing();
+            
         }   
     }`
     return script;
 }
 const mockFile = {
     name: "test.move",
-    script: mockScript(1)
+    script: mockScript(1),
+    warnings:[]
+
+}
+const mockFile2 = {
+    name: "test2.move",
+    script: mockScript(1),
+    warnings:[]
+
 }
 
-interface PoolProps {
-    client: AptosClient;
+const mockProject = {
+    name: "test",
+    files: [mockFile,mockFile2],
+    // toml: mock_toml
 }
 
-// This page will load a list of user files and show an inbrowser ide
-// From here the user can create new files, edit existing files, and delete files
-// These files will be stored as resources in the user's account
-// from this page the user will be able to compile, test and deploy their contracts
+const loadProjects = () => {
+    if(localStorage.getItem('user_projs') === null){
+        localStorage.setItem('user_projs', JSON.stringify([mockProject]))
+        return [mockProject]
+    }
+    return JSON.parse(localStorage.getItem('user_projs') || '[]')
+}
+
+const ProjCollection = (projects:any,selectedProject:any, selectProject: (file:File) => void,
+    openFile: (file:File) => void,
+) => {
+    
+
+    return (
+        <div className="flex flex-col">
+            <div className="flex flex-row">
+                <p>Projects</p>
+            </div>
+            {projects.map((project:any) => (
+                <div className="flex flex-row">
+                    <button
+                        className={`${
+                            selectedProject.name === project.name ? "bg-gray-200 text-gray-800" : "bg-gray-100 text-gray-600"
+                        } flex flex-row items-center justify-center h-10 px-5 border-b-2 border-transparent font-medium text-sm`}
+                        onClick={() => selectProject(project)}
+                    >
+                        {project.name}
+                    </button>
+                </div>
+            ))}
+            <div >
+                <p>Files</p>
+                <div className="rounded-lg bg-white bg-opacity-20 p-3 m-2">
+            {selectedProject.files.map((file:File) => (
+                <div className="flex flex-row">
+                    <button
+                        className=""
+                        onClick={() => openFile(file)}
+                    >
+                        {file.name}
+                    </button>
+                </div>
+            ))}
+            </div>
+            </div>
+
+        </div>
+    );
+};
+                        
+
+const FileTabs = (files:File[], selectedFile:File, selectFile: (file:File) => void, closeFile: (file:File) => void) => {
+    return (
+        <div className="flex flex-row">
+            {files.map((file:File) => (
+                <div className={`${
+                    selectedFile.name === file.name
+
+                        ? "bg-white bg-opacity-30 font-underlined text-white"
+                        : "bg-gray-100 text-gray-600"
+                } flex flex-row justify-between h-10 px-5 border-b-2 border-transparent font-medium text-sm`}>
+                    <button
+                        
+                        onClick={() => selectFile(file)}
+                    >
+                        {file.name}
+                    </button>
+                    <button
+                        className="flex items-top justify-end h-4 p-1 rounded-md hover:bg-white hover:text-red"
+                        onClick={() => closeFile(file)}
+                    >
+                        <FaTimes size={12} />
+                    </button>
+                </div>
+            ))}
+        </div>
+    );
+};
+
+
+
 const IDE = () => {
+
+    const saveFile = (file:File) => {
+        console.log(file)
+        const user_projs = loadProjects()
+        const new_projs = user_projs.map((proj:any) => {
+            if(proj.name === file.name){
+                return file
+            } else {
+                return proj
+            }
+        })
+        localStorage.setItem('user_projs', JSON.stringify(new_projs))
+    }
+    const closeFile = (file: File) => {
+        const updatedFiles = selectedProject.files.filter((f:File) => f.name !== file.name);
+        setOpenFiles(updatedFiles as File[]);
+        if (updatedFiles.length > 0) {
+            setSelectedFile(updatedFiles[0]);
+        }
+    };
+
+    
+
+
+    const [user_projs,setProjs] = useState<any[]>(loadProjects());
+    const [selectedProject, setSelectedProject] = useState<any>(user_projs[0]);
+    const [selectedFile, setSelectedFile] = useState<File>(user_projs[0].files[0]);
+    const [openFiles, setOpenFiles] = useState<File[]>(user_projs[0].files);
+
+
+    const openFile = (file: File) => {
+        if (!openFiles.includes(file)) {
+            setOpenFiles([...openFiles, file]);
+        }
+        setSelectedFile(file);
+    };
+
     return (
     <div className="w-full h-full items-center ">
         <p>IDE</p>
-        <FileEditor file={mockFile} module="temp"/>
+        <div className="flex flex-row items-start">
+        {ProjCollection(user_projs, selectedProject, setSelectedProject, openFile)}
+        <FileEditor file={selectedFile}
+        openFiles={openFiles}
+
+        
+        
+        saveFile={saveFile} module="temp"
+        selectFile={setSelectedFile}
+        closeFile={closeFile}
+        
+        />
+    </div>
     </div>
     )
 }
 
-// const ParserServer = (moveText:string) => {}
-
-const IDEHeader = () =>{
-    return (<div className="flex flex-row items-start justify-center px-3">
-            {/* LOAD File */}
-            <button className="seam-sqr" data-tip="coming soon">
-                Load File
-            </button>
-
-            <button className="seam-sqr" data-tip="coming soon">
-                New Script
-            </button>
-
-            <button className="seam-sqr" data-tip="coming soon">
-                Template Scripts
-            </button>
-
-            {/* Save button */}
-             <button className="seam-sqr" data-tip="coming soon">
-                <FaSave />
-            </button>
-            </div>)
-}
-
-
 const FileEditor = ({
     file,
-    module
+    openFiles,
+    module,
+    saveFile,
+    selectFile,
+    closeFile,
 }:EditorProps) => {
 
-    // const handleChange = (e:any) =>{
-    //         setCurrentText(e.event.textValue);
-    // }
 
     const [currentText, setCurrentText] = useState<string>(file.script);
 
     return (
         <div className="mockup-window w-3/4 border-pink rounded-xl mockup-window-outline border-4 shadow-xl  shadow-pink  min-h-1/2 pt-2 m-3">
-<ParserServer/>
-            <div>
-        {/* <div className="multiline h-60">
-        <textarea 
-        className="w-full h-full py-3 mx-3 rounded-2xl bg-white px-5 text-black"
-          name="textValue"
-          value={currentText}
-        //   onChange={(e)=>handleChange(e)}
-        />
-      </div> */}
+{/* <ParserServer/> */}
+{FileTabs(openFiles,file,selectFile,closeFile)}
+<AceEditor
+        mode="graphqlschema"
         
+        theme="monokai"
+        value={currentText}
+        onChange={setCurrentText}
+        name="query-editor"
+        
+        editorProps={{ $blockScrolling: true }}
+        setOptions={{
+            enableBasicAutocompletion: true,
+            enableLiveAutocompletion: false,
+            enableSnippets: false,
+            showLineNumbers: true,
+            tabSize: 2,
+            }}
+        width="100%"
+        height="500px"
+      />
 
-      </div>
+            {/* <div> */}
 
-      {/* <p>{currentText}</p> */}
-            </div>
+      {/* </div> */}
+      <button 
+      className="seam-button flex flex-row items-center justify-center h-10 px-5 border-b-2 border-transparent font-medium text-sm"
+      onClick={()=>saveFile({name:file.name, script:currentText})}> <FaSave/> Save</button>
+        </div>
     )}
 
 export default IDE;
