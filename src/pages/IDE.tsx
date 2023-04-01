@@ -73,9 +73,7 @@ const ProjCollection = (projects:any,selectedProject:any, selectProject: (file:F
 
     return (
         <div className="flex flex-col">
-            <div className="flex flex-row">
-                <p>Projects</p>
-            </div>
+                <p className="text-center text-lg pb-2">Projects</p>
             {projects.map((project:any) => (
                 <div className="flex flex-row">
                     <button
@@ -178,9 +176,9 @@ const IDE = () => {
     };
 
     return (
-    <div className="w-full h-full items-center ">
-        <p>IDE</p>
-        <div className="flex flex-row items-start">
+    <div className="w-full h-full items-center justify-between">
+        
+        <div className="flex flex-row items-start justify-between">
         {ProjCollection(user_projs, selectedProject, setSelectedProject, openFile)}
         <FileEditor file={selectedFile}
         openFiles={openFiles}
