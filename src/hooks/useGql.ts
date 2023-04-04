@@ -13,7 +13,31 @@ const useGqlClient = (): ApolloClient<any> => {
   return apolloClient;
 };
 
-const useModuleQuery = (client: ApolloClient<NormalizedCacheObject> | null, prefix: string) => {
+
+const MODULE_QUERY = gql`
+    query ModuleTxs($prefix: String!) {
+        user_transactions(
+            where: { entry_function_id_str: { _like: $prefix } }
+            order_by: { timestamp: desc }
+        ) {
+            entry_function_id_str
+            sender
+            version
+            timestamp
+        }
+    }
+`;
+
+
+
+// const useDappQuery = (client: ApolloClient<NormalizedCacheObject> | null, dapp: string) => {
+//     const [data, setData] = useState<any>(null);
+//     const [loading, setLoading] = useState<boolean>(true);
+
+
+
+
+const useModuleQuery = (client: ApolloClient<NormalizedCacheObject> | null, prefix: string,) => {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -50,29 +74,30 @@ const useModuleQuery = (client: ApolloClient<NormalizedCacheObject> | null, pref
   return { data, loading };
 };
 
-const useCustomQuery = (client: ApolloClient<NormalizedCacheObject> | null, query: string) => {
-  const [data, setData] = useState<any>(null);
-  const [loading, setLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    if (client && query) {
-      const gqlQuery = gql`${query}`;
+// const useCustomQuery = (client: ApolloClient<NormalizedCacheObject> | null, query: string) => {
+//   const [data, setData] = useState<any>(null);
+//   const [loading, setLoading] = useState<boolean>(true);
 
-      client
-        .query({ query: gqlQuery })
-        .then((result) => {
-          setData(result.data);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-          setLoading(false);
-        });
-    }
-  }, [client, query]);
+//   useEffect(() => {
+//     if (client && query) {
+//       const gqlQuery = gql`${query}`;
 
-  return { data, loading };
-};
+//       client
+//         .query({ query: gqlQuery })
+//         .then((result) => {
+//           setData(result.data);
+//           setLoading(false);
+//         })
+//         .catch((error) => {
+//           console.error('Error:', error);
+//           setLoading(false);
+//         });
+//     }
+//   }, [client, query]);
+
+//   return { data, loading };
+// };
 
 
 const QUERY_TEMPLATE = `{
@@ -86,4 +111,4 @@ const QUERY_TEMPLATE = `{
     }
   }`;
 
-export { useGqlClient, useModuleQuery, useCustomQuery,QUERY_TEMPLATE };
+export { useGqlClient, useModuleQuery,QUERY_TEMPLATE };
