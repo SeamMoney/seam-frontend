@@ -1,20 +1,14 @@
-import Spline from "@splinetool/react-spline";
 import TxnList from "./TxnList";
-import { useWeb3 } from "@fewcha/web3-react";
 import { useEffect, useState } from "react";
 import { Types } from "aptos";
 import { loadTxs } from "hooks/useTransaction";
 import { loadAccount } from "hooks/loadAptos";
-import { sendTransaction, useClient } from "hooks/useAptos";
+import {useClient } from "hooks/useAptos";
 import ResourceDetailView from "views/ResourceDetailView";
 import UserOverview from "./UserOverview";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
 import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  ApolloConsumer,
   gql,
   useQuery,
 } from "@apollo/client";
@@ -25,39 +19,29 @@ import AddrAssets from "components/user/AddrAssets";
 
 const GET_NFTS = gql`
     query CurrentTokens($owner_address: String, $offset: Int) {
-      
   current_token_ownerships(
+    order_by: {last_transaction_version: desc}
+    offset: $offset
     where: {owner_address: {_eq: $owner_address}}
   ) {
     amount
     collection_name
     creator_address
     name
-    token_properties
-    owner_address
-    last_transaction_version
-    current_collection_data {
-      collection_name
-      creator_address
-      description
-      metadata_uri
-      supply
-      uri_mutable
-    }
-    token_data_id_hash
-    current_token_data {
-      uri_mutable
-      token_data_id_hash
-    }
-  }
-}
-`;
+    collection_name
 
+    current_token_data {
+      token_data_id_hash
+      metadata_uri
+    }
+
+  }
+}`;
 
 
 const UserNFTs = ({address}:{address:string}) => {
     const { loading, error, data } = useQuery(GET_NFTS,
-        {variables: { owner_address: address||"0x1", offset: 0 },
+        {variables: { owner_address: address, offset: 0 },
     });
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error : {error.message}</p>;
@@ -74,16 +58,32 @@ const UserNFTs = ({address}:{address:string}) => {
 
 
 const NFT = (tk:any) => {
+
+  
+  const [image_src, setImageSrc] = useState(tk.current_token_data.metadata_uri);
+  
+
+  useEffect(() => {
+    getMetadata(tk.current_token_data.metadata_uri).then((metadata) => {
+    let image_src = tk.current_token_data.metadata_uri;
+  if (metadata && metadata.image||"") {
+    image_src = metadata.image;
+  }
+  setImageSrc(image_src);
+    });
+  }, [tk.current_token_data.metadata_uri]);
+
+
     return (
-      <motion.div className="listing" whileHover={{ scale: 1.05, y: 8 }}>
-        <div className="p-4 m-2 card-body outline-dashed ">
-            {/* <p>{tk.name}</p> */}
+      
+        <div className="p-4 m-2 card-body outline-dashed items-center">
             <p>{tk.name}</p>
-            <p>{tk.collection_name}</p>
-            {/* <p>{tk.amount}</p> */}
-            
-            {/* <p>{tk.supply}</p>
-            <p>{tk.maximum}</p> */}
+            {/* <p>{tk.collection_name}</p> */}
+
+            <a href={tk.current_token_data.metadata_uri} target="_blank">
+                <img src={image_src} alt="nft" className="w-32 h-32"/>
+            </a>
+
         </div>
       </motion.div>
     )
@@ -95,17 +95,18 @@ const UserExplorer = () => {
   const client = useClient();
   const [txs, setTxs] = useState<Types.Transaction[]>([]);
 
-
-
   useEffect(() => {
     if (connected && account != null) {
-      loadAccount(account.address?.toString() || "", client);
-      loadTxs(account.address?.toString() || "", client).then((res) => {
+      loadAccount(account.address?.toString(), client);
+      loadTxs(account.address?.toString(), client).then((res) => {
         setTxs(res);
         console.log("just loaded ", res);
       });
     }
-  }, [account]);
+  }, [account,client,connected]);
+
+
+
 
 
   return (
@@ -127,7 +128,6 @@ const UserExplorer = () => {
             <SwitchView tab_names={["Transactions","Nfts","Resources"]}>
             <TxnList txns={txs} address={account?.address.toString()} />
             <UserNFTs address={account?.address.toString()} />
-
             <ResourceDetailView
               showDetails={true}
               showUnder={true}

@@ -31,10 +31,10 @@ const mockScript = (aptIN:any,) => {
     const market_id= '0x4d61696e204163636f756e74';
     const script = 
     `script { \n
-        use 0x9770fa9c725cbd97eb50b2be5f7416efdfd1f1554beb0750d4dae4c64e860da3::controller;
+        
         fun main(sender: &signer) {
-            controller::register_user();
-            controller::deposit("${market_id}", "${amnt}", false);
+            0xaa90e0d9d16b63ba4a289fb0dc8d1b454058b21c9b5c76864f825d5c1f32582e::momentum_safe::do_nothing();
+            
         }   
     }`
     return script;
@@ -73,9 +73,7 @@ const ProjCollection = (projects:any,selectedProject:any, selectProject: (file:F
 
     return (
         <div className="flex flex-col">
-            <div className="flex flex-row">
-                <p>Projects</p>
-            </div>
+                <p className="text-center text-lg pb-2">Projects</p>
             {projects.map((project:any) => (
                 <div className="flex flex-row">
                     <button
@@ -178,9 +176,9 @@ const IDE = () => {
     };
 
     return (
-    <div className="w-full h-full items-center ">
-        <p>IDE</p>
-        <div className="flex flex-row items-start">
+    <div className="w-full h-full items-center justify-between">
+        
+        <div className="flex flex-row items-start justify-between">
         {ProjCollection(user_projs, selectedProject, setSelectedProject, openFile)}
         <FileEditor file={selectedFile}
         openFiles={openFiles}
