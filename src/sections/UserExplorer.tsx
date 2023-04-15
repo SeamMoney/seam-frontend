@@ -63,15 +63,15 @@ const NFT = (tk:any) => {
   const [image_src, setImageSrc] = useState(tk.current_token_data.metadata_uri);
   
 
-  useEffect(() => {
-    getMetadata(tk.current_token_data.metadata_uri).then((metadata) => {
-    let image_src = tk.current_token_data.metadata_uri;
-  if (metadata && metadata.image||"") {
-    image_src = metadata.image;
-  }
-  setImageSrc(image_src);
-    });
-  }, [tk.current_token_data.metadata_uri]);
+  // useEffect(() => {
+  //   getMetadata(tk.current_token_data.metadata_uri).then((metadata:any) => {
+  //   let image_src = tk.current_token_data.metadata_uri;
+  // if (metadata && metadata.image||"") {
+  //   image_src = metadata.image;
+  // }
+  // setImageSrc(image_src);
+  //   });
+  // }, [tk.current_token_data.metadata_uri]);
 
 
     return (
@@ -85,7 +85,6 @@ const NFT = (tk:any) => {
             </a>
 
         </div>
-      </motion.div>
     )
     }
 

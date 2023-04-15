@@ -533,6 +533,14 @@ export const dapps = [
     "image": "aux.svg",
     "address":"0xbd35135844473187163ca197ca93b2ab014370587bb0ed3befff9e902d6bb541",
   },
+  {
+    "name":"Spectrum",
+    "tags": ["multi-sig"],
+    "twitter":"https://twitter.com/SpecProtocol",
+    "url": "https://aptos.spec.finance/vaults",
+    "image": "spectrum.svg",
+    "address":"0x14569c912dbe4b3916c201c454b47a749427eab5d56e0f1eaba971f6ade648a5",
+  },
 
   {
     "name": "MSafe",
