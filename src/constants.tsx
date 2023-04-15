@@ -7,7 +7,7 @@ export const networks = {
   testnet: "https://testnet.aptoslabs.com",
   ait3: "https://ait3.aptosdev.com/",
 };
-export const mock_toml=`
+export const mock_toml={name:'move.toml',script:`
 [package]
 name = "ferum"
 version = "0.1.0"
@@ -18,7 +18,7 @@ AptosFramework = { git = "https://github.com/aptos-labs/aptos-core.git", subdir 
 [addresses]
 ferum="0x728891241aa0dc576e23fa368c168f657b1364eb909c8444f28bc7e4a4a2268d"
 
-`;
+`};
 export type NetworkName = keyof typeof networks;
 
 // Remove trailing slashes

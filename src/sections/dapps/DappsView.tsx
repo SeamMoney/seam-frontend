@@ -27,7 +27,7 @@ const DappsView = () => {
     let { dappName } = useParams();
 
     const [selectedDapp, setSelectedDapp] = useState<any>(dappByName(dappName || "home"));
-    const [recentOpen, setRecentOpen] = useState<any[]>(dapps.slice(0, 3));
+    const [recentOpen, setRecentOpen] = useState<any[]>(dapps.slice(0, 4));
     const [home,setHome] = useState<boolean>(true);
     const [txns,setTxs] = useState<any[]>([]);
     const [otherTxns,setOther] = useState<any[]>([]);
@@ -43,6 +43,7 @@ const DappsView = () => {
         }
         const newStack = [curr, ...dappStack]
         setDappStack(newStack);
+        setRecentOpen(newStack.slice(0,4));
     }
 
 
@@ -59,12 +60,13 @@ const DappsView = () => {
     
 
     return (
-        <div>
+        <div className="w-screen p-4">
 <ReactSelect
-            className="w-full text-black"
+            className="w-full text-black bg-opacity-30 outline-dashed"
           options={dapps.map((dapp) => ({ value: dapp.name, label: dapp.name }))}
           onChange={(name:any)=>changeDapp(dappByName(name.value))}
           placeholder="Search for a Dapp..."
+
         />
         
         <div className="flex flex-col w-full p-2 relative items-start justify-start ">
@@ -82,7 +84,7 @@ const DappsView = () => {
             </button>
           ))}
             </div>
-                <div className="px-6 w-full">
+                <div className="px-3 w-full">
                     <div className="w-full items-center justify-center">
                     {home ? (
                             <SplashFrame selectDapp={changeDapp} />)
