@@ -70,6 +70,20 @@ export const dapps = [
     "docs": "https://www.econia.dev/",
     "address": "0xc0deb00c9154b6b64db01eeb77d08255300315e1fa35b687d384a703f6034fbd",
   },
+
+  {
+    "name": "Foil",
+    "description": "",
+    "tags": ["DeFi", "DEX"],
+    "discord": "https://discord.gg/ydAeGtrW",
+    "twitter": "https://twitter.com/foil_labs",
+    "image": "foil.jpg",
+    "status": "mainnet",
+    "url": 'https://app.foil.so/swap',
+    "github": "https://github.com/econia-labs",
+    "docs": "",
+    "address": "0x4a1ed03e1e2b8cfb805fa60fa89b7ac4f9b8a27240084cd6d0d06dd2b0f89c3e",
+  },
   
   {
     "name": "Aptos-Names",
