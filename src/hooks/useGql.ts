@@ -86,4 +86,23 @@ const QUERY_TEMPLATE = `{
     }
   }`;
 
-export { useGqlClient, useModuleQuery, useCustomQuery,QUERY_TEMPLATE };
+
+
+  const useStakeQuery = () => {
+    const query = `
+      query StakeQuery {
+        current_delegator_balances {
+          amount
+          delegator_address
+          pool_address
+          pool_type
+          table_handle
+        }
+      }
+    `;
+  
+    return useCustomQuery(apolloClient, query);
+  };
+  
+
+export { useGqlClient, useModuleQuery, useCustomQuery,useStakeQuery,QUERY_TEMPLATE };
