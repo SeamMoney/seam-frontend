@@ -153,6 +153,22 @@ export const dapps = [
     Npm: "",
   },
 
+  {
+    "name": "APass",
+    discord: "https://discord.gg/apass",
+    image: "aPass.png",
+    url: "https://aptpp.com/#/dashboard",
+    description: "",
+    tags: ["Infra", "Social"],
+    Published: "Jul 19, 2022 6:53 AM",
+    twitter: "https://twitter.com/APassNetwork",
+    address: "https://github.com/AptosPassport",
+    status: "Mainnet",
+    github: "",
+    Docs: "",
+    Npm: "",
+  },
+
 
   {
     "name": "Thala Labs",

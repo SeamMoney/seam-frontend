@@ -60,15 +60,16 @@ const DappsView = () => {
     
 
     return (
-        <div className="w-screen p-4">
+        <div className="w-screen p-4 m-3">
 <ReactSelect
-            className="w-full text-black"
+            className="w-60 text-black"
           options={dapps.map((dapp) => ({ value: dapp.name, label: dapp.name }))}
           onChange={(name:any)=>changeDapp(dappByName(name.value))}
           placeholder="Search for a Dapp..."
         />
         
         <div className="flex flex-col w-full p-2 relative items-start justify-start ">
+            <p>Recent</p>
             <div className="flex flex-row">
             <div className="flex flex-row justify-start p-1"></div>
           {dappStack.map((dapp, index) => (

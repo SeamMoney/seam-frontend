@@ -14,7 +14,8 @@ const BASE_OUTLINE = "seam-button  w-full p-2 m-2"
 const BASE_BOX = "outline w-1/3  outline-8 outline-dashed h-auto py-3 px-8 m-4 items-left justify-center rounded-2xl"
 const BASE_GRAD = " bg-gradient-to-tl from-rose-400 via-pastelBlue to-blue2 m-3"
 const BASE_WINDOW = "mockup-window rounded-3xl border-blue px-6 py-3  mockup-window-outline border-4 shadow-xl shadow-pink w-full pt-2 m-3"
-
+const SEAM_TEXT = "text-2xl font-bold font-sans Dank Mono text-start text-white px-2 text-break"
+const SEAM_TEXT_SECONDARY = "text-xl font-bold font-sans Dank Mono text-start text-white px-2 opacity-60"
 // const OUTLINE = "outline-dashed"
 
 export const BASE_TYPES = {
@@ -31,5 +32,7 @@ export const BASE_TYPES = {
   BASE_OUTLINE,
   BASE_GRAD,
   BASE_WINDOW,
-  BASE_BOX
+  BASE_BOX,
+  SEAM_TEXT,
+  SEAM_TEXT_SECONDARY
 };

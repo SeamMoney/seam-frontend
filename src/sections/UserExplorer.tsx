@@ -16,6 +16,7 @@ import tokensJson from "../defaultList.mainnet.json";
 import { motion } from "framer-motion";
 import SwitchView from "./SwitchView";
 import AddrAssets from "components/user/AddrAssets";
+import { BASE_TYPES } from "BaseStyles";
 
 const GET_NFTS = gql`
     query CurrentTokens($owner_address: String, $offset: Int) {
@@ -27,10 +28,19 @@ const GET_NFTS = gql`
     token_data_id_hash
     name
     collection_name
+    owner_address
+    token_properties
 
     current_token_data {
       token_data_id_hash
       metadata_uri
+    }
+
+    current_collection_data {
+      description
+      metadata_uri
+      supply
+      last_transaction_timestamp
     }
 
   }
@@ -44,11 +54,13 @@ const UserNFTs = ({address}:{address:string}) => {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error : {error.message}</p>;
     return (
-        <div className="flex flex-wrap">
+      <div  className="h-1/2">
+        <div className="flex flex-wrap scroll-m-10 overflow-scroll">
             {data.current_token_ownerships.map((nft:any) => {
                 return <NFT {...nft}/>;
             })}
         </div>
+      </div>
     )
 }
 
@@ -79,16 +91,38 @@ const NFT = (tk:any) => {
     return (
       
         <div className="p-4 m-2 card-body outline-dashed items-center">
-            <p>{tk.name}</p>
-            {/* <p>{tk.collection_name}</p> */}
-
+            <p
+              className={BASE_TYPES.SEAM_TEXT}
+            >{tk.name}</p>
+            <div>
+            <p
+              className={BASE_TYPES.SEAM_TEXT_SECONDARY}
+            >{tk.collection_name}</p>
+            {/* supply */}
+            
+</div>
             <a href={tk.current_token_data.metadata_uri} target="_blank">
-                <img src={image_src} alt="nft" className="w-32 h-32"/>
+                <img src={image_src} alt="nft" className="w-32 h-32 rounded-lg m-2"/>
             </a>
+            <div className="flex flex-row p-2">
+            <p>Q.</p>
+            <p
+              className={BASE_TYPES.SEAM_TEXT_SECONDARY}
+            >{tk.current_collection_data.supply}</p>
+            
+            </div>
 
         </div>
     )
     }
+
+const NFTButtons = () => {
+    return (
+        <div className="flex flex-row">
+
+          </div>
+    )
+}
 
 
 const UserExplorer = () => {
@@ -124,7 +158,7 @@ const UserExplorer = () => {
           <div className="flex flex-col ">
             <div className="flex flex-row ">
             <UserOverview {...account} />
-            <UserNFTs address={account?.address.toString()} />
+            {/* <UserNFTs address={account?.address.toString()} /> */}
 
             </div>
             <SwitchView tab_names={["Transactions","Nfts","Resources"]}>
