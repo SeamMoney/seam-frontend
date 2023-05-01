@@ -8,6 +8,7 @@ import "ace-builds/src-noconflict/theme-monokai";
 import AceEditor from "react-ace";
 import { useClient } from "hooks/useAptos";
 import {useWallet} from "@aptos-labs/wallet-adapter-react";
+import Chat from "./Chat";
 // const tokenClient = new TokenClient(useClient());
 type File = {
     name: string;
@@ -177,8 +178,8 @@ const IDE = () => {
 
     return (
     <div className="w-full h-full items-center justify-between">
-        
-        <div className="flex flex-row items-start justify-between">
+        <Chat/>
+        {/* <div className="flex flex-row items-start justify-between">
         {ProjCollection(user_projs, selectedProject, setSelectedProject, openFile)}
         <FileEditor file={selectedFile}
         openFiles={openFiles}
@@ -190,7 +191,7 @@ const IDE = () => {
         closeFile={closeFile}
         
         />
-    </div>
+    </div> */}
     </div>
     )
 }
@@ -209,8 +210,9 @@ const FileEditor = ({
 
     return (
         <div className="mockup-window w-3/4 border-pink rounded-xl mockup-window-outline border-4 shadow-xl  shadow-pink  min-h-1/2 pt-2 m-3">
+            
 {/* <ParserServer/> */}
-{FileTabs(openFiles,file,selectFile,closeFile)}
+{/* {FileTabs(openFiles,file,selectFile,closeFile)}
 <AceEditor
         mode="graphqlschema"
         
@@ -229,7 +231,7 @@ const FileEditor = ({
             }}
         width="100%"
         height="500px"
-      />
+      /> */}
 
             {/* <div> */}
 

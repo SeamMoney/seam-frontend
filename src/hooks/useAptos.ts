@@ -33,7 +33,6 @@ export const aptStats =async (client=mClient) => {
     console.log("SUPPLY HANDLE", supply_handle)
     return coin
 
-    
 }
 
 
@@ -71,11 +70,6 @@ export const useCoinClient = (client:AptosClient=mClient)=>{
     return new CoinClient(client);
 }
 
-// export const loadTokens = async (client:AptosClient=mClient)=>{
-//     const tokenClient = useTokenClient(client);
-//     const tokens = await tokenClient;
-//     return tokens;
-// }
 
 export const loadCoins = async (client:AptosClient=mClient)=>{
     // const coinClient = useCoinClient(client);
@@ -112,28 +106,11 @@ export const loadCoin = async (coin:any,client=mClient) => {
     return coinInfo
 }
 
-// export const loadCoinList = async (coin_list:any[]) => {
-//     let coin_list_data = [];
-//     for (let i = 0; i < coin_list.length; i++) {
-//         const coin = coin_list[i];
-//         const coin_data = await loadCoin(coin);
-//         coin_list_data.push(coin_data)
-//     }
-//     return coin_list_data
-    
-// }
-
 
 
 export const mintCollection = async () => {}
 
 
-// export const mintWagmi = async (account: AptosAccount) => {
-//     const payload = {
-//         type: "script_function_payload",
-//         function: `${WAGGY_ADDY}`,
-//     }
-// }
 
 export const loadPool = (pool:any) =>{
     if(pool.platform==="liquidSwap"){
@@ -199,6 +176,8 @@ const txnHash = await window.martian.signAndSubmitTransaction(transactionRequest
 // console.log(transactionRequest);
 // console.log(txnHash);
 };
+
+// export const pad 
 
 export const sendPayload = async () => {}
 //     sender:string,

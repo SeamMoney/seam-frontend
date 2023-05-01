@@ -6,6 +6,19 @@ interface Message {
   sender: 'User' | 'MoveGPT';
 }
 
+const UserMessage: React.FC<{ text: string }> = ({ text }) => (
+    <li className="user-message message" style={{ backgroundColor: 'lightblue', borderRadius: '5px', padding: '5px', margin: '5px 0' }}>
+      User: {text}
+    </li>
+  );
+  
+  const MoveGPTMessage: React.FC<{ text: string }> = ({ text }) => (
+    <li className="movegpt-message message bg-black" style={{ backgroundColor: 'black', borderRadius: '5px', padding: '5px', margin: '5px 0' }}>
+      Move GPT: {text}
+    </li>
+  );
+  
+
 // Load CHAT_URL from .env file
 const CHAT_URL = process.env.CHAT_URL || 'http://localhost:3022';
 
@@ -39,22 +52,14 @@ const Chat: React.FC = () => {
 
   return (
     <div className="chat-container text-white">
-      <ul className="messages-list">
-        {messages.map((message, index) => (
-          <li
-            key={index}
-            className={`message ${message.sender === 'User' ? 'user-message' : 'movegpt-message bg-black'}`}
-            style={{
-              backgroundColor: message.sender === 'User' ? 'lightblue' : 'bg-black',
-              borderRadius: '5px',
-              padding: '5px',
-              margin: '5px 0',
-            }}
-          >
-            {message.text}
-          </li>
-        ))}
-
+       <ul className="messages-list">
+        {messages.map((message, index) =>
+          message.sender === 'User' ? (
+            <UserMessage key={index} text={message.text} />
+          ) : (
+            <MoveGPTMessage key={index} text={message.text} />
+          )
+        )}
       </ul>
       {isLoading && <div className="loading-indicator">Loading...</div>}
       <form onSubmit={handleSubmit} className="message-input-form flex flex-row items-center justify-between">

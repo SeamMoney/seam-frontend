@@ -17,10 +17,6 @@ interface DappFrameProps {
 
 
 
-
-
-
-
 const DappHeader = (dapp: Dapp) => {
     return (<div className="flex flex-row gap gap-2  items-center text-baseline px-4">
         <p className="text-2xl ">{dapp?.name}</p>

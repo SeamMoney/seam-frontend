@@ -75,29 +75,29 @@ const useModuleQuery = (client: ApolloClient<NormalizedCacheObject> | null, pref
 };
 
 
-// const useCustomQuery = (client: ApolloClient<NormalizedCacheObject> | null, query: string) => {
-//   const [data, setData] = useState<any>(null);
-//   const [loading, setLoading] = useState<boolean>(true);
+const useCustomQuery = (client: ApolloClient<NormalizedCacheObject> | null, query: string) => {
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
-//   useEffect(() => {
-//     if (client && query) {
-//       const gqlQuery = gql`${query}`;
+  useEffect(() => {
+    if (client && query) {
+      const gqlQuery = gql`${query}`;
 
-//       client
-//         .query({ query: gqlQuery })
-//         .then((result) => {
-//           setData(result.data);
-//           setLoading(false);
-//         })
-//         .catch((error) => {
-//           console.error('Error:', error);
-//           setLoading(false);
-//         });
-//     }
-//   }, [client, query]);
+      client
+        .query({ query: gqlQuery })
+        .then((result) => {
+          setData(result.data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          setLoading(false);
+        });
+    }
+  }, [client, query]);
 
-//   return { data, loading };
-// };
+  return { data, loading };
+};
 
 
 const QUERY_TEMPLATE = `{

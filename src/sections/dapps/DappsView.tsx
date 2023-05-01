@@ -61,7 +61,6 @@ const DappsView = () => {
 
     return (
         <div className="w-screen p-4">
-            <div className="w-3/4 p-2">
 <ReactSelect
             className="w-3/4 text-black bg-opacity-30 outline-dashed"
           options={dapps.map((dapp) => ({ value: dapp.name, label: dapp.name }))}
