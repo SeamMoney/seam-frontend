@@ -4,11 +4,13 @@ import AccountOutline from "components/etc/AccountOutline";
 import { format_large_number, shortenAddress } from "hooks/formatting";
 import StakeForm from "hooks/StakeInputs";
 import useStakeInputs from "hooks/StakeInputs";
-import { loadValidators } from "hooks/useAptos";
+import { loadValidators, useClient } from "hooks/useAptos";
 import React, { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import useSubmitStake from "../../hooks/useStake";
 import { validator_addresses } from './validator_data';
+import { useStakeQuery } from "hooks/useGql";
+import { useApolloClient } from "@apollo/client";
 
 export function StakePage() {
 
@@ -40,11 +42,15 @@ const ValidatorPreview = (validatorSample: any) => {
 const Validators = () => {
   // const [validatorData, setVData] = useState<any>();
   const validators = useLoaderData() as any;
-  // const 
+  const client= useApolloClient();
+  const { data: stakeData, loading: stakeLoading } = useStakeQuery();
 
   function sortfunc(a: any, b: any) {
     return b.voting_power - a.voting_power;
   }
+  // const 
+
+
 
   const ValidatorsOverView = () => {
     if(validators?.validatorInfo.validators){

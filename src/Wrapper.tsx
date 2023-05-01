@@ -37,7 +37,7 @@ import {
 } from "@manahippo/aptos-wallet-adapter";
 import { ReactNode, useState, useMemo } from "react";
 import { GlobalStateProvider } from "GlobalState";
-
+import{ Analytics } from '@vercel/analytics/react';
 import WalletModal from "modals/walletModal";
 import Staking from "./pages/Staking";
 import { useClient } from "hooks/useAptos";
@@ -101,6 +101,9 @@ const Wrapper: React.FC<WrapperProps> = ({ children }) => {
       </AptosWalletAdapterProvider>
     </GlobalStateProvider>
 
+<
+Analytics 
+/>
     </ApolloProvider>
   );
 };

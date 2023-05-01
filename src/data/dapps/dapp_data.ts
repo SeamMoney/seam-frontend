@@ -70,6 +70,20 @@ export const dapps = [
     "docs": "https://www.econia.dev/",
     "address": "0xc0deb00c9154b6b64db01eeb77d08255300315e1fa35b687d384a703f6034fbd",
   },
+
+  {
+    "name": "Foil",
+    "description": "",
+    "tags": ["DeFi", "DEX"],
+    "discord": "https://discord.gg/ydAeGtrW",
+    "twitter": "https://twitter.com/foil_labs",
+    "image": "foil.jpg",
+    "status": "mainnet",
+    "url": 'https://app.foil.so/swap',
+    "github": "https://github.com/econia-labs",
+    "docs": "",
+    "address": "0x4a1ed03e1e2b8cfb805fa60fa89b7ac4f9b8a27240084cd6d0d06dd2b0f89c3e",
+  },
   
   {
     "name": "Aptos-Names",
@@ -548,6 +562,14 @@ export const dapps = [
     "url": "https://aux.exchange/",
     "image": "aux.svg",
     "address":"0xbd35135844473187163ca197ca93b2ab014370587bb0ed3befff9e902d6bb541",
+  },
+  {
+    "name":"Spectrum",
+    "tags": ["multi-sig"],
+    "twitter":"https://twitter.com/SpecProtocol",
+    "url": "https://aptos.spec.finance/vaults",
+    "image": "spectrum.svg",
+    "address":"0x14569c912dbe4b3916c201c454b47a749427eab5d56e0f1eaba971f6ade648a5",
   },
 
   {

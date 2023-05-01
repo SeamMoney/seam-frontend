@@ -25,7 +25,9 @@ const GET_NFTS = gql`
     offset: $offset
     where: {owner_address: {_eq: $owner_address}}
   ) {
-    token_data_id_hash
+    amount
+    collection_name
+    creator_address
     name
     collection_name
     owner_address
@@ -53,6 +55,7 @@ const UserNFTs = ({address}:{address:string}) => {
     });
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error : {error.message}</p>;
+    if(!data) return <p>No data</p>;
     return (
       <div  className="h-1/2">
         <div className="flex flex-wrap scroll-m-10 overflow-scroll">
@@ -65,11 +68,6 @@ const UserNFTs = ({address}:{address:string}) => {
 }
 
 
-const getMetadata = async (uri:string) => {
-    const res = await fetch(uri);
-    const data = await res.json();
-    return data;
-}
 
 const NFT = (tk:any) => {
 
@@ -77,15 +75,15 @@ const NFT = (tk:any) => {
   const [image_src, setImageSrc] = useState(tk.current_token_data.metadata_uri);
   
 
-  useEffect(() => {
-    getMetadata(tk.current_token_data.metadata_uri).then((metadata) => {
-    let image_src = tk.current_token_data.metadata_uri;
-  if (metadata && metadata.image||"") {
-    image_src = metadata.image;
-  }
-  setImageSrc(image_src);
-    });
-  }, [tk.current_token_data.metadata_uri]);
+  // useEffect(() => {
+  //   getMetadata(tk.current_token_data.metadata_uri).then((metadata:any) => {
+  //   let image_src = tk.current_token_data.metadata_uri;
+  // if (metadata && metadata.image||"") {
+  //   image_src = metadata.image;
+  // }
+  // setImageSrc(image_src);
+  //   });
+  // }, [tk.current_token_data.metadata_uri]);
 
 
     return (
@@ -150,7 +148,6 @@ const UserExplorer = () => {
         <div>
          
             {AddrAssets(account?.address.toString()||'0x1')}
-            
         </div>
       </div>
       <div className="flex flex-row m-3 items-start justify-start">
@@ -158,7 +155,7 @@ const UserExplorer = () => {
           <div className="flex flex-col ">
             <div className="flex flex-row ">
             <UserOverview {...account} />
-            {/* <UserNFTs address={account?.address.toString()} /> */}
+            
 
             </div>
             <SwitchView tab_names={["Transactions","Nfts","Resources"]}>

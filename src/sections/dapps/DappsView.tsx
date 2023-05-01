@@ -60,18 +60,18 @@ const DappsView = () => {
     
 
     return (
-        <div className="w-screen p-4 m-3">
+        <div className="w-screen p-4">
+            <div className="w-3/4 p-2">
 <ReactSelect
-            className="w-60 text-black"
+            className="w-3/4 text-black bg-opacity-30 outline-dashed"
           options={dapps.map((dapp) => ({ value: dapp.name, label: dapp.name }))}
           onChange={(name:any)=>changeDapp(dappByName(name.value))}
           placeholder="Search for a Dapp..."
+
         />
         
-        <div className="flex flex-col w-full p-2 relative items-start justify-start ">
-            <p>Recent</p>
+        <div className="flex flex-wrap w-full p-2 relative items-start justify-start ">
             <div className="flex flex-row">
-            <div className="flex flex-row justify-start p-1"></div>
           {dappStack.map((dapp, index) => (
             <button  className="seam-button" key={index} onClick={() => changeDapp(dapp)}>
             <div className="flex flex-row items-center">
@@ -81,8 +81,11 @@ const DappsView = () => {
               </p>
             </div>  
 
+
             </button>
           ))}
+
+</div>
             </div>
                 <div className="px-3 w-full">
                     <div className="w-full items-center justify-center">
@@ -103,7 +106,6 @@ const DappsView = () => {
                 {txns?.length !== 0 ? <TxnList txns={txns || []} address={selectedDapp.address} /> : null}
                 </SwitchView>
                 <ReactTooltip place="top" textColor="white" html={true} multiline={true} />
-        </div>
         </div>
     );
 }
