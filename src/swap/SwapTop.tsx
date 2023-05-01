@@ -2,7 +2,7 @@ import { CoinClient } from "aptos";
 import AssetPrice from "components/asset/AssetPrice";
 import Stat from "components/Stat";
 import Token from "components/Token";
-import TokenStack from "components/TokenStack";
+
 import { useEffect, useState } from "react";
 import DappLogo from "sections/dapps/DappLogo";
 import { dappByName } from "util/dappUtils";
@@ -94,7 +94,7 @@ export function SwapView() {
     return (<div className="w-full min-h-screen items-center justify-center text-white">
         <div className='flex flex-row justify-between gap gap-6'>
             <div>
-                <TokenStack tokens={["APT", "wUSDC", "wSol"]} onClick={add_token} />
+               
                 {SwapSettings(inputCoins)}
             </div>
             <div>
@@ -108,7 +108,6 @@ export function SwapView() {
         </div>
 
         <div className="flex flex-row h-1/3 items-center justify-center">
-            {/* // <SwapPreview inputs={inputs}/> */}
         </div>
 
     </div>);
@@ -117,16 +116,12 @@ export function SwapView() {
 
 
 function SwapPreview({ inputs }: { inputs: SwapInputs }) {
-    // const temp = previewSwap(inputs)
     const [prev, setPrev] = useState<any>(null);
     useEffect(() => {
         previewSwap(inputs).then((p: any) => setPrev(p))
     }, [inputs])
     if (!prev) { return (<div>loading...</div>) }
-    // return (<div>
-    //     {prev.amount?.toString()}
-    // </div>)
-    // } 
+ 
     return (<div>
         <p>{JSON.stringify(prev)}</p>
     </div>)

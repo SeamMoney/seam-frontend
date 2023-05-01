@@ -1,4 +1,3 @@
-import { viewAddressLink } from "../hooks/useExplorer";
 import Token from "./Token";
 
 export default function TokenStack(tokens: any, onClick: any) {

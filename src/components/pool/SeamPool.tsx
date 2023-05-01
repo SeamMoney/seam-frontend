@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 // import { loadUbeSubPools } from '../../hooks/useGraph';
 import TokenStack from "../TokenStack.js";
-import SubSeam from "./SubSeam.js";
 import { useQuery } from "@apollo/react-hooks";
 import BarChart from "../graphs/BarChart.js";
 
@@ -60,7 +59,7 @@ function SeamPool(props: any) {
           </div>
           {collapse === "1" ? (
             <div className="flex flex-col gap-2">
-              {props.pools.map((yp: any, index: number) => {
+              {/* {props.pools.map((yp: any, index: number) => {
                 return (
                   <SubSeam
                     key={index}
@@ -69,7 +68,7 @@ function SeamPool(props: any) {
                     yp={yp}
                   />
                 );
-              })}
+              })} */}
             </div>
           ) : null}
         </div>
