@@ -62,13 +62,21 @@ const DappsView = () => {
     return (
         <div className="w-screen p-4">
 <ReactSelect
-            className="w-3/4 text-black bg-opacity-30 outline-dashed"
-          options={dapps.map((dapp) => ({ value: dapp.name, label: dapp.name }))}
-          onChange={(name:any)=>changeDapp(dappByName(name.value))}
-          placeholder="Search for a Dapp..."
-
-        />
-        
+  className="w-3/4 text-black bg-opacity-30 outline-dashed"
+  options={dapps.map((dapp) => ({
+    value: dapp.name,
+    label: (
+      <div className="flex items-center">
+        <img src={`/dapps/${dapp.image}`} alt={dapp.name} className="w-8 h-8 mr-2" />
+        {dapp.name}
+      </div>
+    ),
+  }))}
+  onChange={(name: any) => changeDapp(dappByName(name.value))}
+  placeholder="Search for a Dapp..."
+//   getOptionLabel={(option) => option.name}
+//   getOptionValue={(option) => option.value}
+/>
         <div className="flex flex-wrap w-full p-2 relative items-start justify-start ">
             <div className="flex flex-row">
           {dappStack.map((dapp, index) => (
@@ -91,7 +99,7 @@ const DappsView = () => {
                     {home ? (
                             <SplashFrame selectDapp={changeDapp} />)
                             : null}
-                        {  selectedDapp?.name ? (
+                        {  selectedDapp?.name && !home ? (
                             <DappFrame dapp={selectedDapp} goHome={()=>setHome(true)} viewUrl={selectedDapp.url} selectDapp={changeDapp} />) : null}
                         
                     </div>

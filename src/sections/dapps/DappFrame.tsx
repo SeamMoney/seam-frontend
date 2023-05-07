@@ -30,23 +30,23 @@ const DappFrame = ({ dapp, viewUrl, selectDapp, goHome }: DappFrameProps) => {
     const [historyIndex, setHistoryIndex] = useState(0);
     const [urlHistory, setUrlHistory] = useState([viewUrl]);
     let dapp_data = dappByName(dapp.name || "") as Dapp;
-    const iframeRef = useRef(null);
+    const iframeRef = useRef<HTMLIFrameElement>(null);
 
     const handleIFrameLoad = () => {
         // Check if the new URL is different from the last one in the history
         console.log("BEGIN LOAD");
-        if(iframeRef!==null && iframeRef.current){
-        if (urlHistory[historyIndex] !== iframeRef.current) {
-            const newUrl = iframeRef.current
+        if (iframeRef !== null && iframeRef.current) {
+            const newUrl = iframeRef.current.src;
     
-            // Add the new URL to the history and update the historyIndex
-            setUrlHistory([...urlHistory.slice(0, historyIndex + 1), newUrl]);
-            setHistoryIndex(historyIndex + 1);
+            if (urlHistory[historyIndex] !== newUrl) {
+                // Add the new URL to the history and update the historyIndex
+                setUrlHistory([...urlHistory.slice(0, historyIndex + 1), newUrl]);
+                setHistoryIndex(historyIndex + 1);
     
-            // Update the current URL
-            setCurrentUrl(newUrl);
+                // Update the current URL
+                setCurrentUrl(newUrl);
+            }
         }
-    }
     };
 
     const handleNavigation = (offset: number) => {
