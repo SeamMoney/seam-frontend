@@ -115,7 +115,7 @@ const ModuleExplorer = () => {
             Add Dapp
           </button>
           </div>
-          <p className="text-center text-lg font-bold pt-2">or Select a Dapp</p>
+          <p className="text-center text-2xl font-bold pt-2">or Select a Dapp</p>
           <div className="flex flex-wrap py-2 items-center scrollbar scrollbar-thumb-blue gap gap-3 w-full">
             {dapps
               .filter((dapp: any) => dapp.address)
@@ -148,12 +148,11 @@ const ModuleExplorer = () => {
             <p className=" text-2xl account-outline">
               {formatParam(selectedAddress)}
             </p>
-            {/* <p className=" text-2xl account-outline">{network}</p> */}
           </span>
-          <div className="flex flex-row">
-            <div>
+          <div className="flex flex-row h-120">
+            <div className="w-1/2">
               <p className="text-xl text-center py-1">Account Modules</p>
-              <div className="flex flex-wrap scrollbar h-60 overflow-y-scroll scrollbar-thumb-blue scrollbar-track-black flex-row justify-start seam-outline p-2 gap gap-2">
+              <div className="flex flex-wrap scrollbar overflow-y-scroll scrollbar-thumb-blue scrollbar-track-black flex-row justify-start seam-outline p-2 gap gap-2">
                 {modules.map((mod: Types.MoveModuleBytecode, i: number) => {
                   return (
                     <div key={i} className="items-center justify-center">

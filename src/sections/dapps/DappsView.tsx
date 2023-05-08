@@ -55,8 +55,12 @@ const DappsView = () => {
         loadTxs(dapp.address, dapp.client).then((res) => {
             setTxs(res);
             setHome(false);
-        }
-        );
+            
+        }).catch((err) => {
+            setHome(false);
+        })
+        
+        
     }
 
     

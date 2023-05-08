@@ -38,24 +38,24 @@ const DappNav = (
     return (
         <div className="flex flex-row items-start justify-center px-3">
             {/* BACK ARROW */}
-            <button
+            {/* <button
                 className="seam-sqr"
                 data-tip="Back"
                 onClick={() => handleNavigation(-1)}
                 disabled={historyIndex <= 0}
             >
                 <FaBackward />
-            </button>
+            </button> */}
 
             {/* FORWARD ARROW */}
-            <button
+            {/* <button
                 className="seam-sqr"
                 data-tip="Forward"
                 onClick={() => handleNavigation(1)}
                 disabled={historyIndex >= urlHistory.length - 1}
             >
                 <FaForward />
-            </button>
+            </button> */}
 
             {/* URL bar */}
             <input
@@ -74,13 +74,13 @@ const DappNav = (
             </Link>
 
             {/* REFRESH button */}
-            <button
+            {/* <button
                 className="seam-sqr"
                 data-tip="Refresh"
                 onClick={() => setCurrentUrl(currentUrl)}
             >
                 <FaArrowCircleUp />
-            </button>
+            </button> */}
 
             <ReactTooltip place="top" textColor="white" multiline={true} />
         </div>

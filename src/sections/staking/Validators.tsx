@@ -46,8 +46,8 @@ type BlockStatProps = {
 
 const BlockStat: React.FC<BlockStatProps> = ({ label, value,multiplier }) => {
   return (
-    <div className="flex flex-col bg-lightPurple bg-opacity-40 p-1 mt-2 rounded-xl max-w-lg ">
-      <p className={` text-right ${BASE_TYPES.BASE_LG} mt-2`}>{format_large_number(value)}</p>
+    <div className="flex flex-col bg-lightPurple bg-opacity-40 p-1 m-2 rounded-xl max-w-lg ">
+      <p className={` text-right ${BASE_TYPES.BASE_LG} pt-2 px-3`}>{format_large_number(value)}</p>
       <p className={`text-right ${BASE_TYPES.BASE_T4} `}>{label}</p>
     </div>
   );
@@ -78,7 +78,7 @@ const Validators = () => {
 
 
       return (
-        <div>
+        <div className="flex flex-wrap items-center gap gap-4">
           <BlockStat label="Avg. Stake" value={averageVotingPower} />
           <BlockStat label="Cumulative Stake of Validators" value={cumulativeVotingPower} />
           <BlockStat label="Total Validators" value={num_validators} />

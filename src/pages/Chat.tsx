@@ -1,6 +1,8 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
+import {dapps} from 'data/dapps/dapp_data';
 import { IoMdSend } from 'react-icons/io'; 
+import WindowWrapper from 'components/etc/WindowWrapper';
 interface Message {
   text: string;
   sender: 'User' | 'MoveGPT';
@@ -51,7 +53,9 @@ const Chat: React.FC = () => {
   };
 
   return (
-    <div className="chat-container text-white">
+    <div className=" text-white">
+      <WindowWrapper>
+        <div className='h-128'>
        <ul className="messages-list">
         {messages.map((message, index) =>
           message.sender === 'User' ? (
@@ -61,6 +65,7 @@ const Chat: React.FC = () => {
           )
         )}
       </ul>
+      </div>
       {isLoading && <div className="loading-indicator">Loading...</div>}
       <form onSubmit={handleSubmit} className="message-input-form flex flex-row items-center justify-between">
         <input
@@ -77,6 +82,7 @@ const Chat: React.FC = () => {
         
       </form>
       
+    </WindowWrapper>
     </div>
   );
 };
