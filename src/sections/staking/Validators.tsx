@@ -38,6 +38,23 @@ const ValidatorPreview = (validatorSample: any) => {
 
 }
 
+type BlockStatProps = {
+  label: string;
+  value: number;
+  multiplier?: number;
+}
+
+const BlockStat: React.FC<BlockStatProps> = ({ label, value,multiplier }) => {
+  return (
+    <div className="flex flex-col bg-lightPurple bg-opacity-40 p-1 mt-2 rounded-xl max-w-lg ">
+      <p className={` text-right ${BASE_TYPES.BASE_LG} mt-2`}>{format_large_number(value)}</p>
+      <p className={`text-right ${BASE_TYPES.BASE_T4} `}>{label}</p>
+    </div>
+  );
+}
+
+
+
 
 const Validators = () => {
   // const [validatorData, setVData] = useState<any>();
@@ -54,16 +71,17 @@ const Validators = () => {
 
   const ValidatorsOverView = () => {
     if(validators?.validatorInfo.validators){
-      const cumulativeVotingPower = validators.validatorInfo.validators.reduce((a: any, b: any) => a + b.voting_power, 0);
+      const cumulativeVotingPower = validators.validatorInfo.validators.reduce((a: any, b: any) => a +b.voting_power/1,0 );
       // show the average voting power of the top 100 validators
       const averageVotingPower = cumulativeVotingPower / 100;
-
+      const num_validators = validators.validatorInfo.validators.length;
 
 
       return (
         <div>
-          <p className={BASE_TYPES.BASE_T4}>Avg. Stake{format_large_number(averageVotingPower)}</p>
-          <p className={BASE_TYPES.BASE_T4}>Cumultive Stake of Validators{format_large_number(cumulativeVotingPower)}</p>
+          <BlockStat label="Avg. Stake" value={averageVotingPower} />
+          <BlockStat label="Cumulative Stake of Validators" value={cumulativeVotingPower} />
+          <BlockStat label="Total Validators" value={num_validators} />
         </div>
       )
 
@@ -90,7 +108,7 @@ const Validators = () => {
               
                 <div>
                   <p className="text-4xl pt-1">{format_large_number(v.voting_power)}</p>
-                  <p className="text-xl opacity-60"> Apt staked</p>
+                  <p className="text-xl opacity-60"> Voting power</p>
                 </div>
               
               <div>

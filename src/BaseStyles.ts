@@ -7,6 +7,7 @@ const BASE_INPUT = "bg-white bg-opacity-10 text-white rounded-xl text-left px-3 
 const BASE_T1 = "text-5xl font-bold font-sans Dank Mono text-center text-white"
 const BASE_T2 = "text-4xl font-bold font-sans Dank Mono text-center text-white"
 const BASE_T3 = "font-sans font-bold Dank Mono lg:text-9xl text-center md:text-8xl text-7xl"
+const BASE_LG = "font-sans font-bold Dank Mono text-8xl text-left"
 const BASE_T4 = "text-left text-3xl p-10"
 const BASE_LABEL = "text-sm text-left opacity-60 text-center text-white"
 const BASE_DIV = "bg-white bg-o pacity-5 rounded-2xl p-2 m-2 justify-center"
@@ -26,6 +27,7 @@ export const BASE_TYPES = {
   BASE_DIV,
   BASE_T1,
   BASE_T2,
+  BASE_LG,
   BASE_T3,
   BASE_T4,
   BASE_LABEL,

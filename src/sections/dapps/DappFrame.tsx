@@ -25,62 +25,6 @@ const DappHeader = (dapp: Dapp) => {
 }
 
 
-const DappFrame = ({ dapp, viewUrl, selectDapp, goHome }: DappFrameProps) => {
-    const [currentUrl, setCurrentUrl] = useState(viewUrl);
-    const [historyIndex, setHistoryIndex] = useState(0);
-    const [urlHistory, setUrlHistory] = useState([viewUrl]);
-    let dapp_data = dappByName(dapp.name || "") as Dapp;
-    const iframeRef = useRef<HTMLIFrameElement>(null);
-
-    const handleIFrameLoad = () => {
-        // Check if the new URL is different from the last one in the history
-        console.log("BEGIN LOAD");
-        if (iframeRef !== null && iframeRef.current) {
-            const newUrl = iframeRef.current.src;
-    
-            if (urlHistory[historyIndex] !== newUrl) {
-                // Add the new URL to the history and update the historyIndex
-                setUrlHistory([...urlHistory.slice(0, historyIndex + 1), newUrl]);
-                setHistoryIndex(historyIndex + 1);
-    
-                // Update the current URL
-                setCurrentUrl(newUrl);
-            }
-        }
-    };
-
-    const handleNavigation = (offset: number) => {
-        let newIndex = historyIndex + offset;
-        newIndex = Math.max(0, Math.min(urlHistory.length - 1, newIndex));
-        setCurrentUrl(urlHistory[newIndex]);
-        setHistoryIndex(newIndex);
-    };
-
-    return (
-        <div className="w-full ">
-            <WindowWrapper>
-                {DappHeader(dapp_data)}
-                {DappNav(dapp_data, selectDapp, goHome, currentUrl, setCurrentUrl, handleNavigation,historyIndex,urlHistory)}
-                {renderIDapp(currentUrl,handleIFrameLoad)}
-            </WindowWrapper>
-        </div>
-    );
-
-
-    function renderIDapp(url:string,onLoad:any) {
-        return (<iframe className="scrollbar rounded-xl  scrollbar-thumb-pink scrollbar-track-blue"
-        width={'100%'}
-        height={'600px'}
-        ref={iframeRef}
-        onLoad={onLoad}
-        title="host" src={url} />)
-        
-    }
-};
-
-export default DappFrame;
-
-
 const DappNav = (
     dapp: Dapp,
     selectDapp: (dapp: Dapp) => void,
@@ -142,3 +86,65 @@ const DappNav = (
         </div>
     );
 };
+
+
+
+const DappFrame = ({ dapp, viewUrl, selectDapp, goHome }: DappFrameProps) => {
+    const [currentUrl, setCurrentUrl] = useState(viewUrl);
+    const [historyIndex, setHistoryIndex] = useState(0);
+    const [urlHistory, setUrlHistory] = useState([viewUrl]);
+    let dapp_data = dappByName(dapp.name || "") as Dapp;
+    const iframeRef = useRef<HTMLIFrameElement>(null);
+
+
+
+    const handleIFrameLoad = () => {
+        // Check if the new URL is different from the last one in the history
+        
+        if (iframeRef !== null && iframeRef.current) {
+            console.log("BEGIN LOAD");
+            const newUrl = iframeRef.current.src;
+    
+            if (urlHistory[historyIndex] !== newUrl) {
+                // Add the new URL to the history and update the historyIndex
+                setUrlHistory([...urlHistory.slice(0, historyIndex + 1), newUrl]);
+                setHistoryIndex(historyIndex + 1);
+                console.log("NEW URL",newUrl);
+                // Update the current URL
+                setCurrentUrl(newUrl);
+            }
+        } else{ console.log("NULL REF");}
+    };
+
+    const handleNavigation = (offset: number) => {
+        let newIndex = historyIndex + offset;
+        newIndex = Math.max(0, Math.min(urlHistory.length - 1, newIndex));
+        setCurrentUrl(urlHistory[newIndex]);
+        setHistoryIndex(newIndex);
+    };
+
+    return (
+        <div className="w-full ">
+            <WindowWrapper>
+                {DappHeader(dapp_data)}
+                {DappNav(dapp_data, selectDapp, goHome, currentUrl, setCurrentUrl, handleNavigation,historyIndex,urlHistory)}
+                {renderIDapp(currentUrl,handleIFrameLoad)}
+            </WindowWrapper>
+        </div>
+    );
+
+
+    function renderIDapp(url:string,onLoad:any) {
+        return (<iframe className="scrollbar rounded-xl  scrollbar-thumb-pink scrollbar-track-blue"
+        width={'100%'}
+        height={'600px'}
+        ref={iframeRef}
+        onLoad={onLoad}
+        title="host" src={url} />)
+        
+    }
+};
+
+export default DappFrame;
+
+
