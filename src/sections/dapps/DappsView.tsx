@@ -48,11 +48,13 @@ const DappsView = () => {
 
 
     const changeDapp = (dapp: any) => {
-        setHome(false);
+        setHome(true);
+        
         setSelectedDapp(dapp);
         pushDapp(dapp);
         loadTxs(dapp.address, dapp.client).then((res) => {
             setTxs(res);
+            setHome(false);
         }
         );
     }
