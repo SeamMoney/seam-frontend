@@ -1,4 +1,5 @@
 import { AptosClient, AptosAccount, FaucetClient, BCS, Types, TxnBuilderTypes, HexString, TokenClient,CoinClient } from "aptos";
+
 import { coins } from "data/coins/coin_data";
 
 import { BaseContract } from "ethers";
@@ -33,6 +34,7 @@ export const aptStats =async (client=mClient) => {
     console.log("SUPPLY HANDLE", supply_handle)
     return coin
 
+    
 }
 
 
@@ -85,6 +87,18 @@ export const loadCoins = async (client:AptosClient=mClient)=>{
 }
 
 
+export const previewTransaction= async(payload:any, sender:string,client:AptosClient=mClient)=>{
+    
+    const txnWithSender = await client.generateRawTransaction(new HexString(sender), payload);
+    const pubKey = new TxnBuilderTypes.Ed25519PublicKey(new TextEncoder().encode(sender));
+
+    const previewTransaction = client.simulateTransaction(pubKey,txnWithSender);
+    return previewTransaction;
+    // return txnWithSender;
+}
+
+
+
 
 export const loadValidators =async (client=mClient) => {
     const validatorInfo = (await client.getAccountResource(new HexString("0x1"),"0x1::stake::ValidatorPerformance"))
@@ -106,10 +120,20 @@ export const loadCoin = async (coin:any,client=mClient) => {
     return coinInfo
 }
 
+// export const loadCoinList = async (coin_list:any[]) => {
+//     let coin_list_data = [];
+//     for (let i = 0; i < coin_list.length; i++) {
+//         const coin = coin_list[i];
+//         const coin_data = await loadCoin(coin);
+//         coin_list_data.push(coin_data)
+//     }
+//     return coin_list_data
+    
+// }
+
 
 
 export const mintCollection = async () => {}
-
 
 
 export const loadPool = (pool:any) =>{
@@ -176,8 +200,6 @@ const txnHash = await window.martian.signAndSubmitTransaction(transactionRequest
 // console.log(transactionRequest);
 // console.log(txnHash);
 };
-
-// export const pad 
 
 export const sendPayload = async () => {}
 //     sender:string,

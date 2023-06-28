@@ -88,16 +88,18 @@ const ModuleExplorer = () => {
         <div className="seam-outline">
           <div className="flex flex-row text-black gap gap-2">
             <input
-              className="w-1/2 py-2 px-4 outline outline-2 outline-white rounded-2xl"
+              className="w-1/2 py-2 px-4  text-xl outline-white bg-black seam-outline  rounded-2xl"
               type="text"
               placeholder="Enter address"
               value={selectedAddress}
               onChange={(e) => setSelectedAddress(e.target.value)}
             />
             <Link to={`/explorer/modules/${network}/${selectedAddress}`}>
-              <button data-tip="load address" className="btn m-1 text-white">
+              <button data-tip="load address"  className=" m-1 align-baseline items-center text-white">
                 {" "}
-                <FaRegArrowAltCircleLeft />
+                <FaRegArrowAltCircleLeft
+                  className="h-8 w-8 m-1 text-white"
+                />
               </button>
             </Link>
             <button
@@ -152,7 +154,7 @@ const ModuleExplorer = () => {
           <div className="flex flex-row h-120">
             <div className="w-1/2">
               <p className="text-xl text-center py-1">Account Modules</p>
-              <div className="flex flex-wrap scrollbar overflow-y-scroll scrollbar-thumb-blue scrollbar-track-black flex-row justify-start seam-outline p-2 gap gap-2">
+              <div className="flex flex-wrap scrollbar h-60 overflow-y-scroll scrollbar-thumb-blue scrollbar-track-black flex-row justify-start seam-outline p-2 gap gap-2">
                 {modules.map((mod: Types.MoveModuleBytecode, i: number) => {
                   return (
                     <div key={i} className="items-center justify-center">

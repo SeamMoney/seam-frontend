@@ -46,7 +46,7 @@ const useModuleQuery = (client: ApolloClient<NormalizedCacheObject> | null, pref
       const query = gql`
         query ModuleTxs($prefix: String!) {
           user_transactions(
-            where: { entry_function_id_str: { _like: $prefix } }
+            where: { entry_function_id_str: { _like: $prefix }, sender:{_eq: "0x9ee9892d8600ed0bf65173d801ab75204a16ac2c6f190454a3b98f6bcb99d915" }
             order_by: { timestamp: desc }
           ) {
             entry_function_id_str

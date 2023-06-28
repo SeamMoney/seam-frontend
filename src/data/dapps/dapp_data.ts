@@ -333,6 +333,20 @@ export const dapps = [
     "docs": "",
     "npm": "",
   },
+  {
+    "name": "Overmind",
+    "tags": ["Infra", "Dev Tools"],
+    "discord": "",
+    "Published": "Jul 19, 2022 5:45 AM",
+    "twitter": "https://twitter.com/overmind_xyz",
+    "status": "Mainnet",
+    "image": "overmind.png",
+    "address": "",
+    "url": 'https://overmind.xyz/',
+    "github": "",
+    "docs": "",
+    "npm": "",
+  },
 
   {
     "name": "ATODEX",

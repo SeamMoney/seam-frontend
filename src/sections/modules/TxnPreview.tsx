@@ -9,7 +9,7 @@ import {
 import { Types } from "aptos";
 import ModuleOutline from "components/etc/ModuleOutline";
 import { formatParam, shortenAddress } from "hooks/formatting";
-import { sendTransaction } from "hooks/useAptos";
+import { sendTransaction,previewTransaction } from "hooks/useAptos";
 import { useState } from "react";
 
 interface TxnPreviewProps {
@@ -55,6 +55,7 @@ const TxnPreview = ({
     signAndSubmitTransaction,
     signTransaction,
     signMessage,
+    
     signMessageAndVerify,
   } = useWallet();
 
@@ -104,6 +105,7 @@ const TxnPreview = ({
       toAddr,
       sender,
       mod,
+      
       func,
       generic_type_params,
       arg_ls
@@ -128,6 +130,7 @@ const TxnPreview = ({
     };
     try {
       const response = await signAndSubmitTransaction(payload);
+      // const preview = await client.previewTransaction(payload);
       //   await aptosClient.waitForTransaction(response?.hash || "");
       //   setSuccessAlertMessage(
       //     `https://explorer.aptoslabs.com/txn/${response?.hash}`
