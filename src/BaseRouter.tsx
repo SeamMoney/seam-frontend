@@ -140,7 +140,7 @@ export const BaseRouter = () => {
 
           <Route element={<UserExplorer />} path="user"></Route>
 
-          <Route element={<IDE />} path="ide"></Route>
+          <Route element={<IDE />} path="Chat"></Route>
 
           <Route element={<SeamPass />} path="seampass"></Route>
 
@@ -161,90 +161,7 @@ export const BaseRouter = () => {
             }}
           />
         </Route>
-        {/* <Route
-          path="explorer"
-          element={<PrivateRouter Component={Explorer} />}
-          errorElement={<ErrorPage />}
-        >
-          <Route
-            element={<PrivateRouter Component={ModuleExplorer} />}
-            path="modules/:network/:addr"
-            // loading={<div>loading</div>}
-            loader={async ({
-              request,
-              params,
-            }: {
-              request: any;
-              params: any;
-            }) => {
-              const client = getClient(params.network || "Mainnet");
-              console.log("running module loader");
-              return loadModules(params.addr || "0x1", client);
-            }} */}
-          {/* /> */}
-          {/* <Route
-            element={<Coins />}
-            path="coins"
-            // loading={<div>loading</div>}
-            loader={async ({
-              request,
-              params,
-            }: {
-              request: any;
-              params: any;
-            }) => {
-              const client = getClient(params.network || "Mainnet");
-              console.log("running module loader");
-              return loadCoins(client);
-            }}
-          /> */}
-          {/* <Route
-            element={<PrivateRouter Component={Validators} />}
-            path="validators/"
-            loader={async ({
-              request,
-              params,
-            }: {
-              request: any;
-              params: any;
-            }) => {
-              console.log("running validator loader");
-              const { validatorInfo, validatorSet, defaultConfig } =
-                await loadValidators();
-              const vSet = (validatorSet.data as any).active_validators;
-              const info = (validatorInfo.data as any).validators;
-              const vSetData = {
-                validators: vSet,
-                // count: vSet.active_validators.length(),
-              };
-              console.log("V INfo", info);
-              return {
-                validatorHistory: info,
-                validatorInfo: vSetData,
-                defaultConfig,
-              };
-            }}
-          ></Route>
-          <Route element={<PrivateRouter Component={UserExplorer} />} path="user"></Route>
-          <Route element={<PrivateRouter Component={IDE} />} path="ide"></Route>
-          <Route element={<PrivateRouter Component={SeamPass} />} path="seampass"></Route>
-          <Route element={<PrivateRouter Component={DappsView} />} path="dapps/:dappName"></Route>
-          <Route
-            element={<PrivateRouter Component={DappInfo} />}
-            path="info/:dapp/"
-            loader={async ({
-              request,
-              params,
-            }: {
-              request: any;
-              params: any;
-            }) => {
-              console.log("params are:", params);
-              const dapp = dappByName(params.dapp || "");
-              return { ...dapp, txs: loadTxs(dapp?.address || "0x1") };
-            }}
-          />
-        </Route> */}
+       
         {/* Auth assignment for CSC424 ----------------------------- */}
         <Route path="*" element={<PrivateRouter Component={<p>There's nothing here: 404!</p>} />}/>
         <Route element={<PrivateRouter Component={Home} />} path="home"/>
