@@ -17,7 +17,7 @@ const Explorer = () => {
     { name: "Dapps", id: "dapps/home" },
     // { name: 'Stats', id: 'stats' },
     { name: "Validators", id: "validators" },
-    { name: "IDE", id: "IDE" },
+    { name: "Chat", id: "Chat" },
     // { name: 'Coins', id: 'coins' },
     { name: 'Seam Pass', id: 'seampass' }
   ];

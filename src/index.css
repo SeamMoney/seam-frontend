@@ -499,6 +499,12 @@ body {
   /* min-width: 250px; */
 }
 
+movegpt-message{
+  padding-left: 2rem;
+  padding-top : 1rem;
+  
+}
+
 /* 
 .card-body::before {
   content: "";
